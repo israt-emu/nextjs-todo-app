@@ -1,14 +1,84 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  userId   Int     @id @default(autoincrement())
+  email    String  @unique
+  phone    String
+  name     String
+  password String
+  photo    String?
+  address  String?
+  todos    Todo[]
+  notes    Note[]
+}
+
+model Category {
+  id      Int            @id @default(autoincrement())
+  name    String         @unique
+  colorId Int?
+  color   Color?         @relation(fields: [colorId], references: [id])
+  todos   TodoCategory[]
+  notes   NoteCategory[]
+}
+
+model Color {
+  id         Int        @id @default(autoincrement())
+  name       String
+  hexCode    String
+  todos      Todo[]
+  notes      Note[]
+  categories Category[]
+}
+
+model Todo {
+  id         Int            @id @default(autoincrement())
+  title      String
+  reminder   DateTime?
+  completed  Boolean        @default(false)
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  userId     Int
+  colorId    Int?
+  user       User           @relation(fields: [userId], references: [userId])
+  color      Color?         @relation(fields: [colorId], references: [id])
+  categories TodoCategory[]
+}
+
+model Note {
+  id         Int            @id @default(autoincrement())
+  title      String
+  content    String
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  userId     Int
+  colorId    Int?
+  user       User           @relation(fields: [userId], references: [userId])
+  color      Color?         @relation(fields: [colorId], references: [id])
+  categories NoteCategory[]
+}
+
+model TodoCategory {
+  todo       Todo     @relation(fields: [todoId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  todoId     Int
+  categoryId Int
+
+  @@id([todoId, categoryId])
+}
+
+model NoteCategory {
+  note       Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  noteId     Int
+  categoryId Int
+
+  @@id([noteId, categoryId])
 }

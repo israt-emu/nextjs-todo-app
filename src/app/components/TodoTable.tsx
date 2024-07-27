@@ -8,12 +8,13 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-const TodoTable = <TData, TValue>({columns, data}: DataTableProps<TData, TValue>) => {
+const TodoTable = <TData, TValue> ({columns, data}: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  
   return (
     <div className="rounded-md border mt-10 w-11/12 mx-auto">
       <Table>
