@@ -1,3 +1,5 @@
+import {TodoCategory} from "./category";
+import {Color} from "./color";
 import {User} from "./user";
 
 export type Todo = {
@@ -7,4 +9,8 @@ export type Todo = {
   completed: boolean;
   updatedAt: string;
   userId: number | User;
+  reminder?: Date;
+  colorId?: number;
+  categories?: TodoCategory[];
+  color?: Color;
 };

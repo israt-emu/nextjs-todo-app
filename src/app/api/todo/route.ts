@@ -25,9 +25,7 @@ export async function POST(request: Request) {
           skipDuplicates: true,
         });
 
-        if (categoriesAdded.length === todoCategories.length) {
-          return {newTodo, categoriesAdded};
-        } else {
+        if (categoriesAdded.length !== todoCategories.length) {
           throw new Error("There was an error adding categories");
         }
       }
@@ -43,28 +41,15 @@ export async function POST(request: Request) {
 }
 export async function GET() {
   try {
-    const todos = await prisma?.todo.findMany({include: {categories: {include: {category: true}}, color: true}});
+    const todos = await prisma?.todo.findMany({
+      include: {
+        categories: {include: {category: true}},
+        color: true,
+      },
+    });
     // console.log(todos);
     return Response.json(todos);
   } catch (error) {
-    return Response.json(error);
-  }
-}
-export async function DELETE(request: Request) {
-  try {
-    const {title, userId, colorId, reminder, categories} = await request.json();
-    const newTodo = await prisma?.todo.create({
-      data: {title, userId, colorId, reminder},
-    });
-    if (newTodo?.id && categories?.length > 0) {
-      const todoCategories = categories?.map((cat: number) => {
-        return {todoId: newTodo?.id, categoryId: cat};
-      });
-      const catgeoryadded = await prisma?.todoCategory.createMany(todoCategories);
-    }
-    return Response.json({newTodo});
-  } catch (error) {
-    console.log(error);
     return Response.json(error);
   }
 }

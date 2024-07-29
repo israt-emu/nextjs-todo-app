@@ -12,17 +12,18 @@ const TasksList = () => {
           </Link>
           <ul>
             <li className="rounded-sm">
-              <Link href="/dashboard/upcoming" className="flex items-center px-2 py-1 space-x-3 rounded-md">
-                <ChevronsRight className="text-sky-800" />
-                <span>Upcoming</span>
+              <Link href="/dashboard/todos" className="flex items-center px-2 py-1 space-x-3 rounded-md">
+                <ListChecks className="text-primary" />
+                <span>Todos</span>
               </Link>
             </li>
             <li className="rounded-sm">
-              <Link href="/dashboard/today" className="flex items-center px-2 py-1 space-x-3 rounded-md">
-                <ListChecks className="text-primary" />
-                <span>Today</span>
+              <Link href="/dashboard/upcoming-todos" className="flex items-center px-2 py-1 space-x-3 rounded-md">
+                <ChevronsRight className="text-sky-800" />
+                <span>Upcoming Todos</span>
               </Link>
             </li>
+
             <li className="rounded-sm">
               <Link href="/dashboard/calendar" className="flex items-center px-2 py-1 space-x-3 rounded-md">
                 <CalendarDays className="text-secondary" />

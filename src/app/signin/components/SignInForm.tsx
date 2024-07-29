@@ -11,8 +11,7 @@ import Spinner from "@/components/ui/Spinner";
 import Link from "next/link";
 import {loginUser} from "@/app/actions/auth";
 import {useRouter} from "next/navigation";
-import {ToastContainer, toast} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {toast} from "@/components/ui/use-toast";
 const formSchema = z.object({
   email: z
     .string({
@@ -41,16 +40,20 @@ const SignInForm = () => {
     const result = await loginUser(values);
     if (result?.accessToken) {
       setLoading(false);
-      toast.success("User Logged In Successfully!");
+      toast({
+        title: "Logged in successfully!",
+      });
       router.push("/dashboard");
     } else {
       setLoading(false);
-      toast.error("There was an error occured..");
+      toast({
+        variant: "destructive",
+        title: "An error occured!",
+      });
     }
   }
   return (
     <Form {...form}>
-      <ToastContainer />
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-10/12 gap-4">
         <div className=" my-3">
           <FormField

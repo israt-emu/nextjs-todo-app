@@ -18,6 +18,7 @@ import {toast} from "@/components/ui/use-toast";
 import {TodoAddProps} from "../types/props";
 import {Color} from "../types/color";
 import {MultiSelect} from "@/components/ui/multiselect";
+import Spinner from "@/components/ui/Spinner";
 ////
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -28,7 +29,7 @@ const formSchema = z.object({
 });
 
 const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,7 +39,8 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
     },
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setLoading(true);
+
     const formattedDate = values.reminder ? new Date(values.reminder).toISOString() : undefined;
     const todo = {
       title: values?.title,
@@ -48,11 +50,15 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
       categories: selectedCategories,
     };
     const addTodo = await createTodo(todo);
-    console.log(addTodo);
-    if (addTodo?.newtodo?.id) {
+    setLoading(false);
+    if (addTodo?.newTodo?.id) {
       toast({
         title: "Added todo successfully!",
-        description: <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4"></pre>,
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "An error occured!",
       });
     }
   }
@@ -109,32 +115,25 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
             />
           </div>
           <div className="">
-            <Controller
+            <FormField
               control={form.control}
               name="reminder"
               render={({field}) => (
-                <FormItem>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant={"outline"} className={cn("w-full justify-start text-left font-normal border-primary", !date && "text-muted-foreground")}>
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {date ? format(date, "PPP") : <span>Select a due date</span>}
+                <FormItem className="flex flex-col">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button variant={"outline"} className={cn(" pl-3 text-left font-normal border border-primary", !field.value && "text-muted-foreground")}>
+                          {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={date}
-                          onSelect={(date) => {
-                            setDate(date);
-                            field.onChange(date);
-                          }}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date < new Date()} initialFocus />
+                    </PopoverContent>
+                  </Popover>
+
                   <FormMessage />
                 </FormItem>
               )}
@@ -143,6 +142,7 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
         </div>
 
         <Button type="submit" className="w-3/4">
+          {loading && <Spinner />}
           Add Todo
         </Button>
       </form>
