@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### This website is a todo list website. The features of this website are:
 
-## Getting Started
+1. Note creation and organization:
 
-First, run the development server:
+   - Text notes
+   - Checklists or to-do lists
+   - Ability to categorize or tag notes
+   - Folders or notebooks for grouping
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Task management:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   - Due dates and reminders
+   - Priority levels
+   - Task assignments (for team use)
+   - Recurring tasks
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Sync and backup:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   - Cloud synchronization across devices
+   - Offline access
+   - Automatic backups
 
-## Learn More
+4. Collaboration:
 
-To learn more about Next.js, take a look at the following resources:
+   - Shared notes or tasks
+   - Comments or discussions
+   - Real-time editing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Search and filter:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   - Full-text search
+   - Advanced filtering options
 
-## Deploy on Vercel
+6. Customization:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   - Themes or color-coding
+   - Custom tags or labels
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+7. Integrations:
+
+   - Calendar integration
+   - Email integration
+   - Third-party app connections
+
+8. Multimedia support:
+
+   - Image attachments
+   - Voice notes
+   - Sketching or handwriting
+
+9. Security:
+
+   - Password protection
+   - End-to-end encryption
+
+10. User interface:
+
+    - Intuitive design
+    - Drag-and-drop functionality
+    - Dark mode
+
+11. Additional features:
+    - Widgets for quick access
+    - Export options
+    - Web clipper for saving online content
+
+These features aim to provide a flexible, efficient system for managing information and tasks. The specific combination of features can vary depending on the app's focus and target audience.

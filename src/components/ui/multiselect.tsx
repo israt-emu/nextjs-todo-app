@@ -179,7 +179,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                         <CheckIcon className="h-4 w-4" />
                       </div>
                       {/* {option.icon && <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />} */}
-                      <span className={`hover:text-black bg-[${option.color.hexCode}]`}>{option.name}</span>
+                      <span className={`hover:text-black ]`}>{option.name}</span>
                     </CommandItem>
                   );
                 })}

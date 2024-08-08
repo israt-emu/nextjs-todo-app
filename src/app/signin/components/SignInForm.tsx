@@ -88,7 +88,7 @@ const SignInForm = () => {
         </div>
 
         <Button type="submit" className="w-full">
-          {loading && <Spinner />}
+          {loading && <Spinner color="white" />}
           Sign In
         </Button>
         <p className="px-6 text-sm text-center align-bottom mt-2">

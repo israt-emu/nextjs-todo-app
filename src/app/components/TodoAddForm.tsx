@@ -142,7 +142,7 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
         </div>
 
         <Button type="submit" className="w-3/4">
-          {loading && <Spinner />}
+          {loading && <Spinner color="border-white" />}
           Add Todo
         </Button>
       </form>

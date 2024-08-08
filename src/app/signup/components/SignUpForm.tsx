@@ -8,11 +8,10 @@ import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {createUser} from "@/app/actions/user";
-import {ToastContainer, toast} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {useRouter} from "next/navigation";
 import Spinner from "@/components/ui/Spinner";
 import Link from "next/link";
+import {toast} from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -47,19 +46,22 @@ const SignUpForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     const data = await createUser(values);
+    setLoading(false);
     if (data?.newUser?.userId) {
-      setLoading(false);
-      toast.success("Account Created Successfully!");
+      toast({
+        title: "Account created successfully!",
+      });
       router.push("/signin");
     } else {
-      setLoading(false);
-      toast.error("There was an error occured..");
+      toast({
+        variant: "destructive",
+        title: "An error occured!",
+      });
     }
   }
 
   return (
     <Form {...form}>
-      <ToastContainer />
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-10/12 gap-4">
         <div className="">
           <FormField
@@ -123,7 +125,7 @@ const SignUpForm = () => {
         </div>
 
         <Button type="submit" className="w-full">
-          {loading && <Spinner />}
+          {loading && <Spinner color="white" />}
           Sign Up
         </Button>
         <p className="px-6 text-sm text-center  align-bottom mt-2">

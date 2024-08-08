@@ -21,14 +21,7 @@ const Sidebar = async () => {
             <Menu />
           </button>
         </div>
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center py-4">
-            <button type="submit" className="p-2 focus:outline-none focus:ring">
-              <Search />
-            </button>
-          </span>
-          <input type="search" name="Search" placeholder="Search..." className="w-full py-2 pl-10 text-sm rounded-md focus:outline-none " />
-        </div>
+
         {/* ///tasks  */}
         <div className="flex-1">
           <TasksList />

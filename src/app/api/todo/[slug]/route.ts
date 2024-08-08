@@ -1,4 +1,6 @@
 import {prisma} from "@/lib/prisma";
+import {sendResponse} from "@/lib/utils";
+import {Todo} from "@prisma/client";
 
 export async function DELETE(request: Request, {params}: {params: {slug: string}}) {
   try {
@@ -16,10 +18,21 @@ export async function DELETE(request: Request, {params}: {params: {slug: string}
 
       return "Todo and associated categories deleted successfully!";
     });
-    return Response.json({message: result});
+    return Response.json(
+      sendResponse({
+        statusCode: 200,
+        success: true,
+        message: result,
+      })
+    );
   } catch (error) {
-    console.error(error);
-    return Response.json({error: "An error occurred during the transaction"});
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any).message,
+      })
+    );
   }
 }
 //get todo by id
@@ -27,9 +40,22 @@ export async function GET({params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
     const todo = await prisma?.todo.findUnique({where: {id: Number(slug)}, include: {categories: {include: {category: true}}, color: true}});
-    return Response.json(todo);
+    return Response.json(
+      sendResponse<Partial<Todo>>({
+        statusCode: 200,
+        success: true,
+        message: "Task retrieved successfully!",
+        data: todo,
+      })
+    );
   } catch (error) {
-    return Response.json(error);
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any).message,
+      })
+    );
   }
 }
 //update todo
@@ -68,9 +94,21 @@ export async function PATCH(request: Request, {params}: {params: {slug: string}}
       return {updateTodo};
     });
 
-    return Response.json(result);
+    return Response.json(
+      sendResponse<Partial<Todo>>({
+        statusCode: 200,
+        success: true,
+        message: "Task updated successfully!",
+        data: result.updateTodo,
+      })
+    );
   } catch (error) {
-    console.error(error);
-    return Response.json({error: "An error occurred during the transaction"});
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any).message,
+      })
+    );
   }
 }

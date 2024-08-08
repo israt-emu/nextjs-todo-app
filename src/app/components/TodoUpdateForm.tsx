@@ -160,7 +160,7 @@ const TodoUpdateForm = ({categories, colors, todo}: TodoUpdateProps) => {
         <div className="grid grid-cols-2 gap-4 items-center">
           <Button className="bg-transparent border border-primary text-dark">Cancel</Button>
           <Button type="submit" className="text-dark bg-transparent border border-secondary">
-            {loading && <Spinner />}
+            {loading && <Spinner color="border-primary" />}
             Save
           </Button>
         </div>

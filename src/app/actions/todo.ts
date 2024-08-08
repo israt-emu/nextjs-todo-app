@@ -14,10 +14,7 @@ export const createTodo = async (todo: any) => {
       },
       body: JSON.stringify(todo),
     });
-    // Ensure to check and parse the response
-    if (!response.ok) {
-      throw new Error("Failed to create todo");
-    }
+
     revalidateTag("todos");
     const newTodo = await response.json();
     return newTodo;
@@ -25,13 +22,19 @@ export const createTodo = async (todo: any) => {
     console.log(error);
   }
 };
-export const getAllTodo = async () => {
+export const getAllTodo = async (searchParams: any) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo`, {next: {tags: ["todos"]}});
-    // Ensure to check and parse the response
-    if (!response.ok) {
-      throw new Error("Failed to get todos");
-    }
+    const queryString = Object.entries(searchParams)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value as any)}`)
+      .join("&");
+    const response = await fetch(
+      `http://localhost:3000/api/todo?${queryString}`,
+
+      {
+        next: {tags: ["todos"]},
+      }
+    );
+
     const todos = await response.json();
     return todos;
   } catch (error) {
@@ -41,10 +44,7 @@ export const getAllTodo = async () => {
 export const getTodoById = async (id: number) => {
   try {
     const response = await fetch(`http://localhost:3000/api/todo/${id}`);
-    // Ensure to check and parse the response
-    if (!response.ok) {
-      throw new Error("Failed to get todo");
-    }
+
     const todo = await response.json();
     return todo;
   } catch (error) {
@@ -56,10 +56,7 @@ export const deleteTodo = async (id: number) => {
     const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
       method: "DELETE",
     });
-    // Ensure to check and parse the response
-    if (!response.ok) {
-      throw new Error("Failed to delete todos");
-    }
+
     revalidateTag("todos");
     const todo = await response.json();
     return todo;
@@ -76,10 +73,24 @@ export const updateTodo = async (id: number, updateData: {data: object; newCateg
       },
       body: JSON.stringify(updateData),
     });
-    // Ensure to check and parse the response
-    if (!response.ok) {
-      throw new Error("Failed to update todos");
-    }
+
+    revalidateTag("todos");
+    const todo = await response.json();
+    return todo;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const updateTodoStatus = async (id: number, completed: boolean) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/todo/change-status`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({id, completed}),
+    });
+
     revalidateTag("todos");
     const todo = await response.json();
     return todo;

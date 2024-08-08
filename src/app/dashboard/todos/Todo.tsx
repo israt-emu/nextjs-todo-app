@@ -1,36 +1,27 @@
 "use client";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {z} from "zod";
+
 import {Checkbox} from "@/components/ui/checkbox";
-import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {toast} from "@/components/ui/use-toast";
-import {CalendarX, ChevronRight, Edit, FilePenLine, Trash2} from "lucide-react";
+import {CalendarX, FilePenLine, Trash2} from "lucide-react";
 import {format} from "date-fns";
-import {deleteTodo} from "@/app/actions/todo";
+import {deleteTodo, updateTodoStatus} from "@/app/actions/todo";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
-import {Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
+import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import TodoUpdateForm from "@/app/components/TodoUpdateForm";
 import {TodoUpdateProps} from "@/app/types/props";
-
-const FormSchema = z.object({
-  completed: z.boolean().default(false).optional(),
-});
+import {useState} from "react";
+import Spinner from "@/components/ui/Spinner";
+import Lottie from "react-lottie";
+import * as completedSuccess from "../../../animations/completedSuccess.json";
 
 export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      completed: false,
-    },
-  });
-
+  const [loading, setLoading] = useState<boolean>(false);
+  const [stop, setStop] = useState<boolean>(false);
+  const [isAnimationPlaying, setIsAnimationPlaying] = useState<boolean>(false);
   const todoDelete = async () => {
+    setLoading(true);
     const result = await deleteTodo(todo.id);
-    console.log(result);
+    setLoading(false);
     if (result.message) {
       toast({
         title: "Deleted todo successfully!",
@@ -42,35 +33,55 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
       });
     }
   };
+  const changeStatus = async (e: boolean | string) => {
+    setLoading(true);
+    const data = await updateTodoStatus(todo?.id, e as boolean);
+    setLoading(false);
+    if (data.success) {
+      setIsAnimationPlaying(true);
+      // Play the animation once
+      setTimeout(() => {
+        setIsAnimationPlaying(false);
+      }, 2000);
+    }
+    if (!data.success) {
+      toast({
+        variant: "destructive",
+        title: "An error occured!",
+      });
+    }
+  };
+  const defaultOptions = {
+    // loop: true,
+    autoplay: false,
+    animationData: completedSuccess,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   return (
-    <Form {...form}>
-      <form className="flex flex-row justify-between space-y-6 my-1 rounded-md shadow border" style={{background: todo?.color?.hexCode}}>
-        <FormField
-          control={form.control}
-          name="completed"
-          render={({field}) => (
-            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md p-4 w-full">
-              <FormControl>
-                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
-              <div className="space-y-1 leading-none text-sm capitalize">
-                <div>{todo?.title}</div>
+    <>
+      {isAnimationPlaying && <Lottie options={defaultOptions} isStopped={false} isClickToPauseDisabled={true} />}
+      <div className="flex flex-row justify-between items-center p-4 my-1 border  border-b-gray-300">
+        <div className="flex items-center gap-2">
+          <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />
+          <div className="text-sm capitalize">
+            <div className={`${todo.completed ? "text-gray-500" : "text-gray-900"}`}>{todo?.title}</div>
 
-                {todo?.reminder && (
-                  <div className="flex flex-row gap-1 items-center text-sm">
-                    <CalendarX className="w-4" />
-                    <p className="">{format(todo?.reminder, "dd/MM/yyyy")}</p>
-                  </div>
-                )}
+            {todo?.reminder && (
+              <div className={`${todo.completed ? "text-gray-500" : "text-gray-900"} flex flex-row gap-1 items-center text-sm`}>
+                <CalendarX className="w-4 h-4" />
+                <p className="h-4">{format(todo?.reminder, "dd/MM/yyyy")}</p>
               </div>
-            </FormItem>
-          )}
-        />
-        <div className="mr-4 flex gap-2">
+            )}
+          </div>
+        </div>
+        <div>{loading && <Spinner color="border-secondary" />}</div>
+        <div className="mr-4 flex gap-2 items-center">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Trash2 className="cursor-pointer mr-3 text-red-400 w-5" onClick={todoDelete} />
+                <Trash2 className="cursor-pointer mr-3 w-4" onClick={todoDelete} />
               </TooltipTrigger>
               <TooltipContent>
                 <p>Delete</p>
@@ -80,7 +91,7 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
 
           <Sheet>
             <SheetTrigger asChild>
-              <FilePenLine className="cursor-pointer w-5" />
+              <FilePenLine className="cursor-pointer w-4" />
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
@@ -93,7 +104,7 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
             </SheetContent>
           </Sheet>
         </div>
-      </form>
-    </Form>
+      </div>
+    </>
   );
 }
