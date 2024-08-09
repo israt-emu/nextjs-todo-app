@@ -1,7 +1,7 @@
 "use server";
 
 import {prisma} from "@/lib/prisma";
-import {createToken} from "@/lib/utils";
+import {createToken, sendResponse} from "@/lib/utils";
 import bcrypt from "bcrypt";
 import {Secret} from "jsonwebtoken";
 
@@ -15,13 +15,27 @@ export async function POST(request: Request) {
       const passMatch = await bcrypt.compare(password, isExist.password);
       if (passMatch) {
         const token = createToken({email: isExist.email, userId: isExist.userId}, process.env.NEXT_PUBLIC_JWT_SECRET as Secret, {expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIRES_IN});
-        return Response.json({accessToken: token});
+        return Response.json(
+          sendResponse({
+            statusCode: 200,
+            success: true,
+            message: "Logged In successfully!",
+            data: token,
+          })
+        );
+      } else {
+        throw new Error("User email or password is incorrect!");
       }
-      return Response.json({message: "User email or password is incorrect!"});
+    } else {
+      throw new Error("User doesn't exists");
     }
-    return Response.json({message: "User Not Found!"});
   } catch (error) {
-    console.log(error);
-    return Response.json(error);
+    return Response.json(
+      sendResponse({
+        statusCode: 200,
+        success: true,
+        message: (error as any)?.message,
+      })
+    );
   }
 }

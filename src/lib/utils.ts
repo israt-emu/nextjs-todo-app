@@ -23,3 +23,10 @@ export const sendResponse = <T>(data: IApiResponse<T>): void | IApiResponse<T> =
   };
   return responseData;
 };
+export function debounce(fn: (value: string) => void, delay: number, value: string) {
+  let timer;
+  return (() => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(value), delay);
+  })();
+}

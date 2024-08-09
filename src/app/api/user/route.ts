@@ -1,5 +1,7 @@
 "use server";
 import {prisma} from "@/lib/prisma";
+import {sendResponse} from "@/lib/utils";
+import {User} from "@prisma/client";
 import bcrypt from "bcrypt";
 export async function POST(request: Request) {
   try {
@@ -10,20 +12,43 @@ export async function POST(request: Request) {
       data: user,
     });
 
-    return Response.json({newUser: newUser});
+    return Response.json(
+      sendResponse<Partial<User>>({
+        statusCode: 200,
+        success: true,
+        message: "Signed up successfully!",
+        data: newUser,
+      })
+    );
   } catch (error) {
-    console.log(error);
-    return Response.json(error);
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any)?.message,
+      })
+    );
   }
 }
 export async function GET() {
   try {
     const users = await prisma?.user.findMany({});
-    // console.log(todos);
-    return Response.json(users);
+
+    return Response.json(
+      sendResponse<User[]>({
+        statusCode: 200,
+        success: true,
+        message: "User retrieved successfully!",
+        data: users,
+      })
+    );
   } catch (error) {
-    return Response.json(error);
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any)?.message,
+      })
+    );
   }
 }
-
-//bcrypt.compare(unhashpass, hashpass)

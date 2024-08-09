@@ -6,7 +6,7 @@ import {z} from "zod";
 import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {createTodo, updateTodo} from "../actions/todo";
+
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {format} from "date-fns";
 import {Calendar as CalendarIcon} from "lucide-react";
@@ -15,11 +15,13 @@ import {Calendar} from "@/components/ui/calendar";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {useState} from "react";
 import {toast} from "@/components/ui/use-toast";
-import {TodoUpdateProps} from "../types/props";
-import {Color} from "../types/color";
+
 import {MultiSelect} from "@/components/ui/multiselect";
 import {Label} from "@/components/ui/label";
 import Spinner from "@/components/ui/Spinner";
+import {TodoUpdateProps} from "@/app/types/props";
+import {updateTodo} from "@/app/actions/todo";
+import {Color} from "@/app/types/color";
 ////
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -55,11 +57,11 @@ const TodoUpdateForm = ({categories, colors, todo}: TodoUpdateProps) => {
       newCategories: areArraysEqual(selectedCategories, oldcategories) ? [] : selectedCategories,
     };
     const result = await updateTodo(todo.id, updateData);
-    console.log(result);
+
     setLoading(false);
-    if (result?.updateTodo?.id) {
+    if (result?.success) {
       toast({
-        title: "Updated todo successfully!",
+        title: "Updated task successfully!",
       });
     } else {
       toast({
@@ -68,7 +70,7 @@ const TodoUpdateForm = ({categories, colors, todo}: TodoUpdateProps) => {
       });
     }
   }
-  console.log(form.watch());
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col   content-center gap-4">

@@ -1,7 +1,7 @@
 import React from "react";
 import signupimg from "../../assets/sign-in-for-todo-app.svg";
 import Image from "next/image";
-import SignUpForm from "./components/SignUpForm";
+import SignUpForm from "../components/signup/SignUpForm";
 const SignUp = () => {
   return (
     <div className="first-gradient grid grid-cols-2 gap-4 rounded">

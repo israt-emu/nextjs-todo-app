@@ -6,7 +6,7 @@ import {z} from "zod";
 import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {createTodo} from "../actions/todo";
+
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {format} from "date-fns";
 import {Calendar as CalendarIcon} from "lucide-react";
@@ -15,10 +15,11 @@ import {Calendar} from "@/components/ui/calendar";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {useState} from "react";
 import {toast} from "@/components/ui/use-toast";
-import {TodoAddProps} from "../types/props";
-import {Color} from "../types/color";
 import {MultiSelect} from "@/components/ui/multiselect";
 import Spinner from "@/components/ui/Spinner";
+import {TodoAddProps} from "@/app/types/props";
+import {createTodo} from "@/app/actions/todo";
+import {Color} from "@/app/types/color";
 ////
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -49,11 +50,11 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
       reminder: formattedDate,
       categories: selectedCategories,
     };
-    const addTodo = await createTodo(todo);
+    const result = await createTodo(todo);
     setLoading(false);
-    if (addTodo?.newTodo?.id) {
+    if (result?.success) {
       toast({
-        title: "Added todo successfully!",
+        title: "Added task successfully!",
       });
     } else {
       toast({

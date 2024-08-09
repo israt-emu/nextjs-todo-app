@@ -1,13 +1,11 @@
-import {getAllCategory} from "@/app/actions/category";
+"use client";
 import {Category} from "@/app/types/category";
 import {ScrollArea} from "@/components/ui/scroll-area";
-import {CircleDot, Diamond, PlusIcon} from "lucide-react";
+import {CopyCheck, PlusIcon} from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import catImg from "../../../assets/category.png";
-import Image from "next/image";
-const CategoryList = async () => {
-  const categories = await getAllCategory();
+
+const CategoryList = ({categories}: any) => {
   return (
     <div>
       <div className="py-2 space-y-1 text-sm">
@@ -15,12 +13,12 @@ const CategoryList = async () => {
           <Link href="#" className="flex items-center p-2 space-x-3 rounded-md">
             <span className="uppercase font-semibold">category</span>
           </Link>
-          <ScrollArea className="h-[70px]">
+          <ScrollArea className="h-[90px]">
             <div>
               {categories?.map((cat: Category, i: number) => (
                 <div key={i} className="rounded-sm">
                   <Link href="#" className="flex items-center px-2 py-1 space-x-3 rounded-md">
-                    <Image src={catImg} alt="category" className="w-4" />
+                    <CopyCheck className="w-5" style={{color: cat?.color?.hexCode}} />
                     <span className="capitalize">{cat?.name}</span>
                   </Link>
                 </div>

@@ -1,9 +1,9 @@
 import React from "react";
-import TodoAddForm from "../components/TodoAddForm";
 import {getAllCategory} from "../actions/category";
 import {getAllColor} from "../actions/color";
 import {getUserFromToken} from "../actions/cookie";
 import {User} from "../types/user";
+import TodoAddForm from "../components/todos/TodoAddForm";
 
 const Dashboard = async () => {
   const categories = await getAllCategory();
@@ -11,7 +11,7 @@ const Dashboard = async () => {
   const user = await getUserFromToken();
   return (
     <div>
-      <TodoAddForm categories={categories} colors={colors} user={user as User} />
+      <TodoAddForm categories={categories?.data} colors={colors?.data} user={user as User} />
     </div>
   );
 };

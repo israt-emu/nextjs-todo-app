@@ -15,7 +15,7 @@ const CompletedSwitch = () => {
       params.set(name, value);
       replace(`${pathname}?${params.toString()}`);
     },
-    [searchParams]
+    [searchParams, pathname, replace]
   );
   return (
     <div className="flex items-center space-x-2">

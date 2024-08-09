@@ -1,6 +1,8 @@
 "use server";
 
 import {prisma} from "@/lib/prisma";
+import {sendResponse} from "@/lib/utils";
+import {Category} from "@prisma/client";
 
 export async function POST(request: Request) {
   try {
@@ -9,10 +11,22 @@ export async function POST(request: Request) {
       data: category,
     });
 
-    return Response.json({newCategory: newCategory});
+    return Response.json(
+      sendResponse<Partial<Category>>({
+        statusCode: 200,
+        success: true,
+        message: "Category created successfully!",
+        data: newCategory,
+      })
+    );
   } catch (error) {
-    console.log(error);
-    return Response.json(error);
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any)?.message,
+      })
+    );
   }
 }
 export async function GET() {
@@ -22,8 +36,21 @@ export async function GET() {
         color: true,
       },
     });
-    return Response.json(categories);
+    return Response.json(
+      sendResponse<Category[]>({
+        statusCode: 200,
+        success: true,
+        message: "Categories retrieved successfully!",
+        data: categories,
+      })
+    );
   } catch (error) {
-    return Response.json(error);
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any)?.message,
+      })
+    );
   }
 }

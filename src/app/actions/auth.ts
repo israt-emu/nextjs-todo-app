@@ -16,7 +16,7 @@ export const loginUser = async (payload: any) => {
 
     const res = await response.json();
     //set token to cookies
-    cookies().set("accessToken", res.accessToken, {
+    cookies().set("accessToken", res.data, {
       secure: false,
     });
     return res;

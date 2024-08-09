@@ -39,7 +39,6 @@ export async function POST(request: Request) {
     });
     return Response.json(res);
   } catch (error) {
-    console.error(error);
     return Response.json(
       sendResponse({
         statusCode: 400,
@@ -53,7 +52,7 @@ export async function POST(request: Request) {
 export async function GET(request: NextRequest) {
   try {
     const searchParams = Object.fromEntries(request.nextUrl.searchParams.entries());
-    const {category, reminder, orderBy, order, completed} = searchParams;
+    const {category, reminder, orderBy, order, completed, todoSearch} = searchParams;
     let whereClause: any = {};
     // Filter by category if provided
     if (category && category !== "all") {
@@ -66,13 +65,17 @@ export async function GET(request: NextRequest) {
       };
     }
     //filter by completed
-
     if (completed === "true") {
       whereClause.completed = true;
     }
 
     if (completed === "false") {
       whereClause.completed = false;
+    }
+
+    //search
+    if (todoSearch) {
+      whereClause.OR = [{title: {contains: todoSearch, mode: "insensitive"}}];
     }
 
     // Filter by reminder
@@ -134,7 +137,9 @@ export async function GET(request: NextRequest) {
 
     //getting todo
     const todos = await prisma?.todo.findMany({
-      where: {AND: {...whereClause}},
+      where: {
+        AND: {...whereClause},
+      },
       orderBy: orderClause,
       include: {
         categories: {include: {category: true}},

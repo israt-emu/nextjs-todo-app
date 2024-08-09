@@ -5,56 +5,79 @@ import {useForm} from "react-hook-form";
 import {z} from "zod";
 
 import {Button} from "@/components/ui/button";
-import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
+import {createUser} from "@/app/actions/user";
+import {useRouter} from "next/navigation";
 import Spinner from "@/components/ui/Spinner";
 import Link from "next/link";
-import {loginUser} from "@/app/actions/auth";
-import {useRouter} from "next/navigation";
 import {toast} from "@/components/ui/use-toast";
+
 const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
   email: z
     .string({
       required_error: "Email is required.",
       invalid_type_error: "Email is invalid.",
     })
     .email(),
-
+  phone: z.string({
+    message: "Phone is required",
+  }),
   password: z.string().min(8, {
     message: "Password must be at least 8 characters.",
   }),
 });
-const SignInForm = () => {
+const SignUpForm = () => {
   const [loading, setLoading] = useState(false);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
       email: "",
+      phone: "",
       password: "",
     },
   });
   const router = useRouter();
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
-    const result = await loginUser(values);
-    if (result?.accessToken) {
-      setLoading(false);
+    const data = await createUser(values);
+    setLoading(false);
+    if (data?.success) {
       toast({
-        title: "Logged in successfully!",
+        title: "Account created successfully!",
       });
-      router.push("/dashboard");
+      router.push("/signin");
     } else {
-      setLoading(false);
       toast({
         variant: "destructive",
         title: "An error occured!",
       });
     }
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-10/12 gap-4">
+        <div className="">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({field}) => (
+              <FormItem>
+                {/* <FormLabel>Username</FormLabel> */}
+                <FormControl>
+                  <Input placeholder="Your Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className=" my-3">
           <FormField
             control={form.control}
@@ -70,7 +93,21 @@ const SignInForm = () => {
             )}
           />
         </div>
-
+        <div className="my-3">
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({field}) => (
+              <FormItem>
+                {/* <FormLabel>Username</FormLabel> */}
+                <FormControl>
+                  <Input placeholder="Phone" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className="my-3">
           <FormField
             control={form.control}
@@ -89,12 +126,12 @@ const SignInForm = () => {
 
         <Button type="submit" className="w-full">
           {loading && <Spinner color="white" />}
-          Sign In
+          Sign Up
         </Button>
-        <p className="px-6 text-sm text-center align-bottom mt-2">
-          Need to create an account?
-          <Link href="/signup" className="hover:underline text-green-700 font-bold ml-1">
-            Signup Here
+        <p className="px-6 text-sm text-center  align-bottom mt-2">
+          Already have an account?
+          <Link href="/signin" className="hover:underline text-green-700 font-bold ml-1">
+            Please Login
           </Link>
           .
         </p>
@@ -103,4 +140,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

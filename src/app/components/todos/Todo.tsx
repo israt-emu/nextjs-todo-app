@@ -7,12 +7,12 @@ import {format} from "date-fns";
 import {deleteTodo, updateTodoStatus} from "@/app/actions/todo";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
-import TodoUpdateForm from "@/app/components/TodoUpdateForm";
 import {TodoUpdateProps} from "@/app/types/props";
 import {useState} from "react";
 import Spinner from "@/components/ui/Spinner";
 import Lottie from "react-lottie";
 import * as completedSuccess from "../../../animations/completedSuccess.json";
+import TodoUpdateForm from "./TodoUpdateForm";
 
 export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
   const [loading, setLoading] = useState<boolean>(false);
@@ -22,9 +22,9 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
     setLoading(true);
     const result = await deleteTodo(todo.id);
     setLoading(false);
-    if (result.message) {
+    if (result?.success) {
       toast({
-        title: "Deleted todo successfully!",
+        title: "Task Deleted successfully!",
       });
     } else {
       toast({
@@ -39,7 +39,6 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
     setLoading(false);
     if (data.success) {
       setIsAnimationPlaying(true);
-      // Play the animation once
       setTimeout(() => {
         setIsAnimationPlaying(false);
       }, 2000);
@@ -52,7 +51,6 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
     }
   };
   const defaultOptions = {
-    // loop: true,
     autoplay: false,
     animationData: completedSuccess,
     rendererSettings: {
@@ -95,7 +93,7 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>Edit Todo</SheetTitle>
+                <SheetTitle>Edit Task</SheetTitle>
                 <SheetDescription> Click save when you are done.</SheetDescription>
               </SheetHeader>
               <div className="grid gap-4 py-4">
