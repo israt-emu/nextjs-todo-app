@@ -1,7 +1,9 @@
 import type {Metadata} from "next";
 import {Nunito} from "next/font/google";
 import "./globals.css";
-import {Toaster} from "@/components/ui/toaster";
+import {ThemeProvider} from "@/components/ui/theme-provider";
+import {ModeToggle} from "./components/navbar/theme";
+
 const inter = Nunito({subsets: ["latin"]});
 
 export const metadata: Metadata = {
@@ -17,8 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="mx-auto">{children}</main>
-        <Toaster />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <main className="mx-auto">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );

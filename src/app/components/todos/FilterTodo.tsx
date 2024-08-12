@@ -29,8 +29,8 @@ const FilterTodo = ({categories}: {categories: Category[]}) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="w-6 h-6 rounded bg-gray-300 flex justify-center items-center">
-                  <ListFilter className="w-5" />
+                <div className="filter-icon">
+                  <ListFilter className="w-4 sm:w-5" />
                 </div>
               </TooltipTrigger>
               <TooltipContent>

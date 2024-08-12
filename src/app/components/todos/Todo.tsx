@@ -63,12 +63,12 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
       <div className="flex flex-row justify-between items-center p-4 my-1 border  border-b-gray-300">
         <div className="flex items-center gap-2">
           <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />
-          <div className="text-sm capitalize">
-            <div className={`${todo.completed ? "text-gray-500" : "text-gray-900"}`}>{todo?.title}</div>
+          <div className="text-xs sm:text-sm capitalize">
+            <div className={`${todo.completed && "text-gray-500"}`}>{todo?.title}</div>
 
             {todo?.reminder && (
-              <div className={`${todo.completed ? "text-gray-500" : "text-gray-900"} flex flex-row gap-1 items-center text-sm`}>
-                <CalendarX className="w-4 h-4" />
+              <div className={`${todo.completed && "text-gray-500"} flex flex-row gap-1 items-center text-xs sm:text-sm`}>
+                <CalendarX className="w-3 h-3 sm:w-4 sm:h-4" />
                 <p className="h-4">{format(todo?.reminder, "dd/MM/yyyy")}</p>
               </div>
             )}
@@ -93,7 +93,7 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>Edit Task</SheetTitle>
+                <SheetTitle>Edit Todo</SheetTitle>
                 <SheetDescription> Click save when you are done.</SheetDescription>
               </SheetHeader>
               <div className="grid gap-4 py-4">

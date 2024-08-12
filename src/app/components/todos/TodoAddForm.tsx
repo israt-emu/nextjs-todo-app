@@ -67,7 +67,7 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col justify-center items-center content-center gap-4">
-        <div className="w-3/4 border border-primary rounded-md">
+        <div className="w-full border border-primary rounded-md">
           <FormField
             control={form.control}
             name="title"
@@ -83,10 +83,10 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
           />
         </div>
 
-        <div className="w-3/4">
+        <div className="w-full">
           <MultiSelect options={categories} onValueChange={setSelectedCategories} initialSelectedValue={selectedCategories} placeholder="Choose one or more categories for your task." variant="inverted" animation={2} maxCount={4} />
         </div>
-        <div className="w-3/4 grid grid-cols-2 gap-4">
+        <div className="w-full grid grid-cols-2 gap-4">
           <div className="">
             <FormField
               name="color"
@@ -124,7 +124,7 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
-                        <Button variant={"outline"} className={cn(" pl-3 text-left font-normal border border-primary", !field.value && "text-muted-foreground")}>
+                        <Button variant={"outline"} className={cn(" pl-3 text-left font-normal border border-primary dark:hover:bg-transparent", !field.value && "text-muted-foreground")}>
                           {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
@@ -142,7 +142,7 @@ const TodoAddForm = ({categories, colors, user}: TodoAddProps) => {
           </div>
         </div>
 
-        <Button type="submit" className="w-3/4">
+        <Button type="submit" className="w-full">
           {loading && <Spinner color="border-white" />}
           Add Todo
         </Button>

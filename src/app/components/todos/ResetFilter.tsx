@@ -23,8 +23,8 @@ const ResetFilter = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <div className="w-6 h-6 rounded-full bg-primary flex justify-center items-center text-gray-200" onClick={resetSearchParams}>
-              <RotateCcw className="w-4" strokeWidth={2.5} />
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary flex justify-center items-center text-gray-200" onClick={resetSearchParams}>
+              <RotateCcw className="w-3 sm:w-4" strokeWidth={2.5} />
             </div>
           </TooltipTrigger>
           <TooltipContent>

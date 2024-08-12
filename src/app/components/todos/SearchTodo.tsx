@@ -24,8 +24,8 @@ const SearchTodo = () => {
     [searchParams, pathname, replace]
   );
   return (
-    <div className="w-2/4">
-      <div className="relative border border-gray-300 ">
+    <div className="w-full">
+      <div className="relative border border-gray-300 mb-2 md:mb-0">
         <span className="absolute inset-y-0 left-0 flex items-center py-4 bg-background">
           <button type="submit" className="p-2 focus:outline-none focus:ring">
             <Search />
