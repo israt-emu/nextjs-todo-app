@@ -4,10 +4,10 @@ import Image from "next/image";
 import SignInForm from "../components/signin/SignInForm";
 const SignIn = () => {
   return (
-    <div className="first-gradient grid grid-cols-2 gap-4 rounded">
+    <div className="first-gradient grid grid-cols-1 md:grid-cols-2 gap-4 rounded">
       <Image src={signupimg} alt="signup" className="rounded-tl rounded-bl" />
       <div className="flex flex-col justify-center items-center">
-        <h2 className="font-semibold text-2xl mb-2">Login to Your Account</h2>
+        <h2 className="font-semibold text-lg md:text-2xl mb-2 text-center">Login to Your Account</h2>
         <SignInForm />
       </div>
     </div>

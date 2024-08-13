@@ -1,4 +1,4 @@
-### This website is a todo list website. The features of this website are:
+### This website is a todo and note listing website. It is created using Next JS, TypeScript, Tailwind CSS, Shadcn ui library, Prisma, PostgrSQL and Next Js own api server. The features of this website are:
 
 1. Note creation and organization:
 

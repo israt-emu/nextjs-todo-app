@@ -54,7 +54,7 @@ const SignInForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-10/12 gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-11/12 md:w-10/12 gap-4 mb-3 md:mb-0">
         <div className=" my-3">
           <FormField
             control={form.control}
@@ -91,7 +91,7 @@ const SignInForm = () => {
           {loading && <Spinner color="white" />}
           Sign In
         </Button>
-        <p className="px-6 text-sm text-center align-bottom mt-2">
+        <p className="px-6 text-xs md:text-sm text-center align-bottom mt-2">
           Need to create an account?
           <Link href="/signup" className="hover:underline text-green-700 font-bold ml-1">
             Signup Here

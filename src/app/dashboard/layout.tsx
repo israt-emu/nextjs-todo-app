@@ -22,11 +22,13 @@ export default async function DashboardLayout({
     <section className="flex w-full items-center pt-4 ">
       <Sidebar categories={categories?.data} user={user} />
       <div className="w-11/12 md:w-9/12 col-span-12 md:col-span-10 mx-auto">
-        <div className="flex items-center justify-between md:justify-end">
-          <MobileNav />
-          <ModeToggle />
-        </div>
-        <ScrollArea className="h-[calc(100vh-20px)]">{children}</ScrollArea>
+        <ScrollArea className="h-[calc(100vh-20px)]">
+          <div className="flex items-center justify-between md:justify-end">
+            <MobileNav />
+            <ModeToggle />
+          </div>
+          {children}
+        </ScrollArea>
       </div>
     </section>
   );
