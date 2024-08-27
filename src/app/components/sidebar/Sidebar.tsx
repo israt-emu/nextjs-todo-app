@@ -7,6 +7,7 @@ import LogoutButton from "./LogoutButton";
 import Avatar from "./Avatar";
 import {cn} from "@/lib/utils";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import {usePathname} from "next/navigation";
 import Link from "next/link";
 import {NavItem, navItems} from "@/app/constants/nav-items";
 import {Icons} from "../icons";
@@ -15,7 +16,7 @@ const Sidebar = ({categories, user}: any) => {
   const handleToggle = () => {
     setCollapse(!collapse);
   };
-
+  const pathname = usePathname();
   return (
     <div
       className={`relative hidden md:flex flex-col h-[calc(100vh-16px)] md:px-3 pt-8 bg-gray-300 dark:bg-[#2b2c2b] rounded-t-lg  transition-[width] duration-500
@@ -30,7 +31,7 @@ const Sidebar = ({categories, user}: any) => {
               item.href && (
                 <Tooltip key={index}>
                   <TooltipTrigger asChild>
-                    <Link href={item.href} className={cn("rounded-sm hover:bg-gray-100 dark:hover:bg-[#404140] flex items-center py-2", collapse ? "px-1 justify-center" : "space-x-3  px-2")}>
+                    <Link href={item.href} className={cn("rounded-sm hover:bg-gray-100 dark:hover:bg-[#404140] flex items-center py-2", collapse ? "px-1 justify-center" : "space-x-3  px-2", pathname === item.href && "bg-gray-100 dark:bg-[#404140]")}>
                       <Icon className={item.className} />
                       {!collapse ? <span className="truncate">{item.title}</span> : ""}
                     </Link>

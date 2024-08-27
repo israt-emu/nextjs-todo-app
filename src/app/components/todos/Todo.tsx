@@ -10,14 +10,11 @@ import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTri
 import {TodoUpdateProps} from "@/app/types/props";
 import {useState} from "react";
 import Spinner from "@/components/ui/Spinner";
-import Lottie from "react-lottie";
-import * as completedSuccess from "../../../animations/completedSuccess.json";
 import TodoUpdateForm from "./TodoUpdateForm";
 
 export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [stop, setStop] = useState<boolean>(false);
-  const [isAnimationPlaying, setIsAnimationPlaying] = useState<boolean>(false);
+
   const todoDelete = async () => {
     setLoading(true);
     const result = await deleteTodo(todo.id);
@@ -38,10 +35,6 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
     const data = await updateTodoStatus(todo?.id, e as boolean);
     setLoading(false);
     if (data.success) {
-      setIsAnimationPlaying(true);
-      setTimeout(() => {
-        setIsAnimationPlaying(false);
-      }, 2000);
     }
     if (!data.success) {
       toast({
@@ -50,16 +43,9 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
       });
     }
   };
-  const defaultOptions = {
-    autoplay: false,
-    animationData: completedSuccess,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
+
   return (
     <>
-      {isAnimationPlaying && <Lottie options={defaultOptions} isStopped={false} isClickToPauseDisabled={true} />}
       <div className="flex flex-row justify-between items-center p-4 my-1 border  border-b-gray-300">
         <div className="flex items-center gap-2">
           <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />
