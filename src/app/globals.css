@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* //foreground-text color */
 @layer base {
   :root {
@@ -135,6 +136,9 @@
     background-image: url("../assets/background.svg");
     background-position: center;
     /* color: #266633; */
+  }
+  .block {
+    background-color: #bababa;
   }
 }
 
