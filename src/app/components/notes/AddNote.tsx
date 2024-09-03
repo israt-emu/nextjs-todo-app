@@ -1,10 +1,14 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import NoteBanner from "./NoteBanner";
+import {getAllColor} from "@/app/actions/color";
 
-const AddNote = () => {
+const AddNote = async () => {
   const Editor = dynamic(() => import("./Editor"), {ssr: false});
+  const colors = await getAllColor();
   return (
-    <div>
+    <div className="mx-auto py-5">
+      <NoteBanner colors={colors?.data} />
       <Editor />
     </div>
   );
