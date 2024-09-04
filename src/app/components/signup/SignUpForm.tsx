@@ -124,7 +124,7 @@ const SignUpForm = () => {
           />
         </div>
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full h-10">
           {loading && <Spinner color="white" />}
           Sign Up
         </Button>

@@ -8,12 +8,9 @@ import "@blocknote/mantine/style.css";
 import "@blocknote/core/fonts/inter.css";
 import {toast} from "@/components/ui/use-toast";
 import {lightGrayTheme} from "@/lib/blackNoteTheme";
+import {useNote} from "@/contexts/NoteContext";
 
-type EditorProps = {
-  initialContent?: PartialBlock[];
-  editable?: boolean;
-};
-
+//upload file to cloudinary
 const uploadFile = async (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -53,9 +50,9 @@ const Editor = () => {
   const editor: BlockNoteEditor = useCreateBlockNote({
     uploadFile,
   });
-
+  const {note, setNote} = useNote();
   return (
-    <div className="mt-4">
+    <div className="mt-4 pb-5">
       {typeof window !== "undefined" && (
         <BlockNoteView
           editor={editor}
@@ -64,6 +61,10 @@ const Editor = () => {
           onChange={() => {
             // Saves the document JSON to state.
             setBlocks(editor.document);
+            setNote({
+              ...note,
+              content: JSON.stringify(editor.document),
+            });
           }}
           emojiPicker={true}
           filePanel={true}

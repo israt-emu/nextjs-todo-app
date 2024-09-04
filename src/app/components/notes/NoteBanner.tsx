@@ -4,21 +4,34 @@ import {Input} from "@/components/ui/input";
 import Spinner from "@/components/ui/Spinner";
 import {toast} from "@/components/ui/use-toast";
 import {ImageIcon, PaletteIcon, Smile} from "lucide-react";
-import React, {MouseEvent, useState} from "react";
-import Picker, {EmojiClickData} from "emoji-picker-react";
+import React, {useEffect, useState} from "react";
+import {EmojiClickData} from "emoji-picker-react";
 import Image from "next/image";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Color} from "@/app/types/color";
 import {findColorById} from "@/app/actions/color";
+//to avoid yjs conflict
+import dynamic from "next/dynamic";
+import {useNote} from "@/contexts/NoteContext";
+const Picker = dynamic(
+  () => {
+    return import("emoji-picker-react");
+  },
+  {ssr: false}
+);
 
 const NoteBanner = ({colors}: {colors: Color[]}) => {
   const [img, setImg] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState({});
+  const {note, setNote, loading, setLoading} = useNote();
+  const [chosenEmoji, setChosenEmoji] = useState<Partial<EmojiClickData>>({});
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showSelect, setShowSelect] = useState(false);
   const [color, setColor] = useState("");
   const [colorId, setColorId] = useState("");
-  const onEmojiClick = (event: MouseEvent, emojiObject: EmojiClickData) => {
+  const [title, setTitle] = useState("Untitled");
+  //emoji click handle
+  const onEmojiClick = (emojiObject: EmojiClickData) => {
+    console.log(emojiObject);
     setChosenEmoji(emojiObject);
     setShowEmojiPicker(false);
   };
@@ -52,14 +65,24 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
       }
     };
   };
-  //
+  //selecting note cover color
   const colorSelect = async (id: string) => {
-    console.log(id);
     const res = await findColorById(Number(id));
-    console.log(res);
-    setColor((res as any)?.hexCode);
+    setColor((res as any)?.data?.hexCode);
     setColorId(id);
+    setShowSelect(false);
   };
+  //setting note data on context
+
+  useEffect(() => {
+    setNote({
+      ...note,
+      colorId: Number(colorId),
+      coverEmoji: chosenEmoji?.imageUrl as string,
+      title,
+      coverImg: img,
+    });
+  }, [colorId, chosenEmoji, img, title]);
   return (
     <>
       <div
@@ -72,16 +95,16 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
           backgroundColor: `${color ? color : "#9C68B2"}`,
         }}
       >
-        {(chosenEmoji as any)?.target ? (
+        {chosenEmoji?.imageUrl ? (
           <div className="absolute bottom-2 left-2 right-0 flex ">
-            <Image src={(chosenEmoji as any)?.target?.src} alt="emoji" width={40} height={15} />
+            <Image src={chosenEmoji?.imageUrl} alt="emoji" width={40} height={15} />
           </div>
         ) : (
           <div></div>
         )}
       </div>
       <div className="relative w-10/12 my-3 group">
-        <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className={`flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${showSelect && "opacity-100"}`}>
           <div className="relative">
             <Button className="bg-gray-300 text-gray-900 flex items-center justify-center gap-1 px-3 py-1 hover:bg-gray-300 text-sm" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
               <Smile className="w-5" /> Add Emoji
@@ -89,7 +112,7 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
             {/* Conditionally render the Emoji Picker */}
             {showEmojiPicker && (
               <div className="absolute top-full mt-2">
-                <Picker onEmojiClick={onEmojiClick} />
+                <Picker onEmojiClick={(emoji: EmojiClickData) => onEmojiClick(emoji)} />
               </div>
             )}
           </div>
@@ -110,8 +133,8 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
               Add Cover
             </label>
           </Button>
-          <Button className="border-0 outline-none focus:outline-none bg-gray-300 hover:bg-gray-300 px-3 py-0 ">
-            <Select onValueChange={(v) => colorSelect(v)}>
+          <div className="rounded bg-gray-300 px-3">
+            <Select onValueChange={(v) => colorSelect(v)} onOpenChange={() => setShowSelect(true)}>
               <SelectTrigger id="color" className="bg-gray-300 text-gray-900 border-0 outline-none flex items-center gap-x-1 p-0 m-0 h-8">
                 <PaletteIcon className="w-5" />
                 <SelectValue placeholder="Add Color" />
@@ -120,18 +143,18 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
                 {colors?.map((color: Color, i: number) => (
                   <SelectItem key={i} value={`${color.id}`}>
                     <div className="flex items-center">
-                      <div className={`w-8 h-8 rounded-full border border-gray-900 `} style={{backgroundColor: color.hexCode}}></div>
+                      <div className={`w-6 h-6 rounded-full border border-gray-900 `} style={{backgroundColor: color.hexCode}}></div>
                       <p className="capitalize ml-2">{color.name}</p>
                     </div>
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-          </Button>
+          </div>
         </div>
         <div className="mt-3 flex items-center gap-2">
           {loading && <Spinner color="border-purple-600" />}
-          <Input placeholder="Untitled" className="border-0 outline-none focus:outline-none font-bold text-4xl " defaultValue="Untitled" />{" "}
+          <Input placeholder="Untitled" className="border-0 outline-none focus:outline-none font-bold text-4xl " defaultValue="Untitled" onChange={(e) => setTitle(e.target.value)} />{" "}
         </div>
       </div>
     </>

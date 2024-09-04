@@ -14,8 +14,14 @@ export const getAllColor = async () => {
 };
 export const findColorById = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/color/${id}`);
-    console.log(id);
+    const response = await fetch(`http://localhost:3000/api/color/getSingle`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({id}),
+    });
+
     if (!response.ok) {
       throw new Error("Failed to get color");
     }

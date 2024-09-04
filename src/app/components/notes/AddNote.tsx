@@ -1,16 +1,22 @@
+"use client";
 import React from "react";
 import dynamic from "next/dynamic";
 import NoteBanner from "./NoteBanner";
-import {getAllColor} from "@/app/actions/color";
+import {NoteProvider} from "@/contexts/NoteContext";
+import {Color} from "@/app/types/color";
+import SaveAndShareNote from "./SaveAndShareNote";
 
-const AddNote = async () => {
+const AddNote = ({colors}: {colors: Color[]}) => {
   const Editor = dynamic(() => import("./Editor"), {ssr: false});
-  const colors = await getAllColor();
+
   return (
-    <div className="mx-auto py-5">
-      <NoteBanner colors={colors?.data} />
-      <Editor />
-    </div>
+    <NoteProvider>
+      <div className="mx-auto pt-3">
+        <SaveAndShareNote />
+        <NoteBanner colors={colors} />
+        <Editor />
+      </div>
+    </NoteProvider>
   );
 };
 

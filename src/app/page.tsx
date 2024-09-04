@@ -24,7 +24,7 @@ const Home = () => {
         <div className="text-2xl text-center font-semibold">Sculpt your aspirations, ideas, and records into harmony</div>
         <div className="text-center text-sm w-10/12 mx-auto">Learn to artfully shape your goals, streamline your thoughts, and arrange your information into a cohesive system. Transform the chaos of daily life into a masterpiece of efficiency and purpose.</div>
         <div className="flex items-center justify-center mt-4">
-          <Button>
+          <Button className="h-10">
             <Link href="/signin">Get Started</Link>
           </Button>
         </div>

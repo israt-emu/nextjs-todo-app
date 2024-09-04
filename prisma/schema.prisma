@@ -26,7 +26,6 @@ model Category {
   colorId Int?
   color   Color?         @relation(fields: [colorId], references: [id])
   todos   TodoCategory[]
-  notes   NoteCategory[]
 }
 
 model Color {
@@ -53,16 +52,17 @@ model Todo {
 }
 
 model Note {
-  id         Int            @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   title      String
-  content    String
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @updatedAt
+  coverImg   String?
+  coverEmoji String?
+  content    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   userId     Int
   colorId    Int?
-  user       User           @relation(fields: [userId], references: [userId])
-  color      Color?         @relation(fields: [colorId], references: [id])
-  categories NoteCategory[]
+  user       User     @relation(fields: [userId], references: [userId])
+  color      Color?   @relation(fields: [colorId], references: [id])
 }
 
 model TodoCategory {
@@ -72,13 +72,4 @@ model TodoCategory {
   categoryId Int
 
   @@id([todoId, categoryId])
-}
-
-model NoteCategory {
-  note       Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  noteId     Int
-  categoryId Int
-
-  @@id([noteId, categoryId])
 }

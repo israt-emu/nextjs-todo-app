@@ -4,6 +4,7 @@ import "./globals.css";
 import {ThemeProvider} from "@/components/ui/theme-provider";
 import {ModeToggle} from "./components/navbar/theme";
 import {Toaster} from "@/components/ui/toaster";
+// import {NoteProvider} from "@/contexts/NoteContext";
 const inter = Nunito({subsets: ["latin"]});
 
 export const metadata: Metadata = {
