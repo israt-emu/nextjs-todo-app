@@ -10,7 +10,7 @@ export type Todo = {
   updatedAt: string;
   userId: number | User;
   reminder?: Date;
-  colorId?: number;
   categories?: TodoCategory[];
-  color?: Color;
+  priority: "LOW" | "MEDIUM" | "HIGH";
+  dueDate?: Date;
 };

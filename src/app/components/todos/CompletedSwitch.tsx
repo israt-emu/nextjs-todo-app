@@ -20,7 +20,7 @@ const CompletedSwitch = () => {
   return (
     <div className="flex items-center space-x-2">
       <Label htmlFor="completed" className="text-sm">
-        Completed Todos
+        Completed
       </Label>
       <Switch id="completed" checked={searchParams.get("completed")?.toString() === "true" ? true : false} onCheckedChange={(check) => createQueryString("completed", check.toString())} />
     </div>

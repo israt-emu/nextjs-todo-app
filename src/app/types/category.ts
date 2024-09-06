@@ -1,11 +1,12 @@
 import {Color} from "./color";
 import {Todo} from "./todo";
+import {User} from "./user";
 
 export type Category = {
   id: number;
   name: string;
-  colorId: number;
-  color: Color;
+  userId?: number;
+  user?: User;
 };
 export type TodoCategory = {
   todoId: number;

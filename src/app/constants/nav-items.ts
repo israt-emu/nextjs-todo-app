@@ -18,12 +18,12 @@ export const navItems: NavItem[] = [
     icon: "todo",
     className: "text-[#8544a0] dark:text-purple-500",
   },
-  {
-    title: "Upcoming Todos",
-    href: "/dashboard/upcoming-todos",
-    icon: "arrowRight",
-    className: "text-sky-800 dark:text-sky-400",
-  },
+  // {
+  //   title: "Upcoming Todos",
+  //   href: "/dashboard/upcoming-todos",
+  //   icon: "arrowRight",
+  //   className: "text-sky-800 dark:text-sky-400",
+  // },
   {
     title: "Calendar",
     href: "/dashboard/calendar",

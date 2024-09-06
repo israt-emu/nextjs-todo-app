@@ -2,66 +2,55 @@
 
 1. Note creation and organization:
 
-   - Text notes
-   - Checklists or to-do lists
-   - Ability to categorize or tag notes
-   - Folders or notebooks for grouping
+   - Text notes(done)
+   - Checklists or to-do lists(done)
+   - Add category and Ability to categorize todos(done)
+   - Folders or notebooks for grouping(coming)
+   - Shared notes
 
 2. Task management:
 
-   - Due dates and reminders
-   - Priority levels
+   - Due dates and reminders--
+   - Priority levels--
    - Task assignments (for team use)
    - Recurring tasks
 
 3. Sync and backup:
 
-   - Cloud synchronization across devices
-   - Offline access
-   - Automatic backups
+   - Offline access(coming..)
 
-4. Collaboration:
+4. Search and filter:
 
-   - Shared notes or tasks
-   - Comments or discussions
-   - Real-time editing
+   - Full-text search (done)
+   - Advanced filtering options (done)
 
-5. Search and filter:
+5. Customization:
 
-   - Full-text search
-   - Advanced filtering options
+   - Themes or color-coding(done)
 
-6. Customization:
+6. Integrations:
 
-   - Themes or color-coding
-   - Custom tags or labels
+   - Calendar integration(coming..)
+   - Email integration(coming..)
 
-7. Integrations:
+7. Multimedia support:
 
-   - Calendar integration
-   - Email integration
-   - Third-party app connections
+   - Image attachments(done)
+   - Voice notes(coming..)
+   - Sketching or handwriting(coming..)
 
-8. Multimedia support:
+8. Security:
 
-   - Image attachments
-   - Voice notes
-   - Sketching or handwriting
+   - Password protection(done)
 
-9. Security:
+9. User interface:
 
-   - Password protection
-   - End-to-end encryption
+   - Intuitive design
+   - Drag-and-drop functionality(coming..)
+   - Dark mode(done)
 
-10. User interface:
-
-    - Intuitive design
-    - Drag-and-drop functionality
-    - Dark mode
-
-11. Additional features:
-    - Widgets for quick access
-    - Export options
-    - Web clipper for saving online content
-
-These features aim to provide a flexible, efficient system for managing information and tasks. The specific combination of features can vary depending on the app's focus and target audience.
+10. Shared notes or tasks
+11. modal responsive
+12. user profile skeleton
+13. dashboard
+14. github and google login

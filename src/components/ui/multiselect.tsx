@@ -71,7 +71,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
   };
 
   const toggleOption = (value: number) => {
-    const newSelectedValues = selectedValues.includes(value) ? selectedValues.filter((v) => v !== value) : [...selectedValues, value];
+    const newSelectedValues = selectedValues?.includes(value) ? selectedValues.filter((v) => v !== value) : [...selectedValues, value];
     setSelectedValues(newSelectedValues);
     onValueChange(newSelectedValues);
   };
@@ -86,16 +86,16 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
   };
 
   const clearExtraOptions = () => {
-    const newSelectedValues = selectedValues.slice(0, maxCount);
+    const newSelectedValues = selectedValues?.slice(0, maxCount);
     setSelectedValues(newSelectedValues);
     onValueChange(newSelectedValues);
   };
 
   const toggleAll = () => {
-    if (selectedValues.length === options.length) {
+    if (selectedValues?.length === options?.length) {
       handleClear();
     } else {
-      const allValues = options.map((option) => option.id);
+      const allValues = options?.map((option) => option.id);
       setSelectedValues(allValues);
       onValueChange(allValues);
     }
@@ -105,11 +105,11 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
     <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen} modal={modalPopover}>
       <PopoverTrigger asChild>
         <Button ref={ref} {...props} onClick={handleTogglePopover} className={cn("flex w-full p-1 rounded-md border border-primary min-h-10 h-auto bg-inherit hover:bg-inherit", className)}>
-          {selectedValues.length > 0 ? (
+          {selectedValues?.length > 0 ? (
             <div className="flex justify-between items-center w-full">
               <div className="flex flex-wrap items-center">
-                {selectedValues.slice(0, maxCount)?.map((value) => {
-                  const option = options.find((o) => o?.id === Number(value));
+                {selectedValues?.slice(0, maxCount)?.map((value) => {
+                  const option = options?.find((o) => o?.id === Number(value));
                   // const IconComponent = option?.icon;
                   return (
                     <Badge key={value} className={cn(isAnimating ? "animate-bounce" : "", multiSelectVariants({variant}))} style={{animationDuration: `${animation}s`}}>
@@ -125,7 +125,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     </Badge>
                   );
                 })}
-                {selectedValues.length > maxCount && (
+                {selectedValues?.length > maxCount && (
                   <Badge className={cn("bg-transparent text-foreground border-foreground/1 hover:bg-transparent", isAnimating ? "animate-bounce" : "", multiSelectVariants({variant}))} style={{animationDuration: `${animation}s`}}>
                     {`+ ${selectedValues.length - maxCount} more`}
                     <XCircle
@@ -165,13 +165,13 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               <CommandItem key="all" onSelect={toggleAll} className="cursor-pointer">
-                <div className={cn("mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary", selectedValues.length === options.length ? "bg-primary text-primary-foreground" : "opacity-50 [&_svg]:invisible")}>
+                <div className={cn("mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary", selectedValues?.length === options?.length ? "bg-primary text-primary-foreground" : "opacity-50 [&_svg]:invisible")}>
                   <CheckIcon className="h-4 w-4" />
                 </div>
                 <span>(Select All)</span>
               </CommandItem>
               <CommandList>
-                {options.map((option) => {
+                {options?.map((option) => {
                   const isSelected = selectedValues.includes(option?.id);
                   return (
                     <CommandItem key={option?.id} onSelect={() => toggleOption(option?.id)} className="cursor-pointer">

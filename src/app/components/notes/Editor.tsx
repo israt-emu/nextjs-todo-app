@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, {useState} from "react";
-import {Block, BlockNoteEditor, PartialBlock} from "@blocknote/core";
+import React, {useEffect} from "react";
+import {BlockNoteEditor, PartialBlock} from "@blocknote/core";
 import {useCreateBlockNote} from "@blocknote/react";
 import {BlockNoteView, darkDefaultTheme} from "@blocknote/mantine";
 import {useTheme} from "next-themes";
@@ -25,9 +26,6 @@ const uploadFile = async (file: File): Promise<string> => {
         });
         const data = await response.json();
         if (data.success) {
-          toast({
-            title: "File uploaded Successfully!",
-          });
           resolve(data.data);
         } else {
           throw new Error(data.error || "Upload failed");
@@ -43,14 +41,32 @@ const uploadFile = async (file: File): Promise<string> => {
   });
 };
 
-const Editor = () => {
+const Editor = ({initialContent, edit}: {initialContent?: string; edit: boolean}) => {
   const {resolvedTheme} = useTheme();
-  // Stores the document JSON.
-  const [blocks, setBlocks] = useState<Block[]>([]);
+
   const editor: BlockNoteEditor = useCreateBlockNote({
+    initialContent: initialContent
+      ? (JSON.parse(initialContent) as PartialBlock[])
+      : [
+          {
+            type: "paragraph",
+            content: "",
+          },
+        ],
     uploadFile,
   });
+
+  //setting content to note
   const {note, setNote} = useNote();
+  useEffect(() => {
+    if (initialContent !== "") {
+      setNote({
+        ...note,
+        content: initialContent,
+      });
+    }
+  }, [initialContent]);
+
   return (
     <div className="mt-4 pb-5">
       {typeof window !== "undefined" && (
@@ -59,8 +75,6 @@ const Editor = () => {
           editable={true}
           theme={resolvedTheme === "dark" ? darkDefaultTheme : lightGrayTheme}
           onChange={() => {
-            // Saves the document JSON to state.
-            setBlocks(editor.document);
             setNote({
               ...note,
               content: JSON.stringify(editor.document),

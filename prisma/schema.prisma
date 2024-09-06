@@ -9,45 +9,46 @@ datasource db {
 }
 
 model User {
-  userId   Int     @id @default(autoincrement())
-  email    String  @unique
-  phone    String
-  name     String
-  password String
-  photo    String?
-  address  String?
-  todos    Todo[]
-  notes    Note[]
+  userId     Int        @id @default(autoincrement())
+  email      String     @unique
+  profession String?
+  bio        String?
+  phone      String
+  name       String
+  password   String
+  photo      String?
+  address    String?
+  todos      Todo[]
+  notes      Note[]
+  Category   Category[]
 }
 
 model Category {
-  id      Int            @id @default(autoincrement())
-  name    String         @unique
-  colorId Int?
-  color   Color?         @relation(fields: [colorId], references: [id])
-  todos   TodoCategory[]
+  id     Int            @id @default(autoincrement())
+  name   String         @unique
+  userId Int?
+  user   User?          @relation(fields: [userId], references: [userId])
+  todos  TodoCategory[]
 }
 
 model Color {
-  id         Int        @id @default(autoincrement())
-  name       String
-  hexCode    String
-  todos      Todo[]
-  notes      Note[]
-  categories Category[]
+  id      Int    @id @default(autoincrement())
+  name    String
+  hexCode String
+  notes   Note[]
 }
 
 model Todo {
   id         Int            @id @default(autoincrement())
   title      String
+  dueDate    DateTime?
   reminder   DateTime?
+  priority   Priority
   completed  Boolean        @default(false)
   createdAt  DateTime       @default(now())
   updatedAt  DateTime       @updatedAt
   userId     Int
-  colorId    Int?
   user       User           @relation(fields: [userId], references: [userId])
-  color      Color?         @relation(fields: [colorId], references: [id])
   categories TodoCategory[]
 }
 
@@ -72,4 +73,10 @@ model TodoCategory {
   categoryId Int
 
   @@id([todoId, categoryId])
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
 }

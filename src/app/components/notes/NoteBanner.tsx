@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
@@ -13,6 +14,7 @@ import {findColorById} from "@/app/actions/color";
 //to avoid yjs conflict
 import dynamic from "next/dynamic";
 import {useNote} from "@/contexts/NoteContext";
+import {NoteBannerProps} from "@/app/types/props";
 const Picker = dynamic(
   () => {
     return import("emoji-picker-react");
@@ -20,19 +22,18 @@ const Picker = dynamic(
   {ssr: false}
 );
 
-const NoteBanner = ({colors}: {colors: Color[]}) => {
-  const [img, setImg] = useState("");
+const NoteBanner = ({colors, singleNote}: NoteBannerProps) => {
+  const [img, setImg] = useState(singleNote?.coverImg || "");
   const {note, setNote, loading, setLoading} = useNote();
-  const [chosenEmoji, setChosenEmoji] = useState<Partial<EmojiClickData>>({});
+  const [chosenEmoji, setChosenEmoji] = useState<string>(singleNote?.coverEmoji || "");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
-  const [color, setColor] = useState("");
-  const [colorId, setColorId] = useState("");
-  const [title, setTitle] = useState("Untitled");
+  const [color, setColor] = useState(singleNote?.color?.hexCode || "");
+  const [colorId, setColorId] = useState(singleNote?.colorId !== 0 ? singleNote?.colorId : "");
+  const [title, setTitle] = useState(singleNote?.title || "Untitled");
   //emoji click handle
   const onEmojiClick = (emojiObject: EmojiClickData) => {
-    console.log(emojiObject);
-    setChosenEmoji(emojiObject);
+    setChosenEmoji(emojiObject?.imageUrl);
     setShowEmojiPicker(false);
   };
   //uploading cover image
@@ -52,10 +53,6 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
       const data = await response.json();
       setLoading(false);
       if (data?.success) {
-        toast({
-          title: "Image uploaded Successfully!",
-        });
-
         setImg(data?.data);
       } else {
         toast({
@@ -78,7 +75,7 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
     setNote({
       ...note,
       colorId: Number(colorId),
-      coverEmoji: chosenEmoji?.imageUrl as string,
+      coverEmoji: chosenEmoji as string,
       title,
       coverImg: img,
     });
@@ -95,19 +92,19 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
           backgroundColor: `${color ? color : "#9C68B2"}`,
         }}
       >
-        {chosenEmoji?.imageUrl ? (
+        {chosenEmoji ? (
           <div className="absolute bottom-2 left-2 right-0 flex ">
-            <Image src={chosenEmoji?.imageUrl} alt="emoji" width={40} height={15} />
+            <Image src={chosenEmoji} alt="emoji" width={40} height={15} />
           </div>
         ) : (
           <div></div>
         )}
       </div>
       <div className="relative w-10/12 my-3 group">
-        <div className={`flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${showSelect && "opacity-100"}`}>
+        <div className={`flex items-center gap-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 ${showSelect && "opacity-100"}`}>
           <div className="relative">
-            <Button className="bg-gray-300 text-gray-900 flex items-center justify-center gap-1 px-3 py-1 hover:bg-gray-300 text-sm" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
-              <Smile className="w-5" /> Add Emoji
+            <Button className="bg-gray-300 dark:bg-[#404140] text-foreground flex items-center justify-center gap-1 px-3 py-1 hover:bg-gray-300 dark:hover:bg-[#404140]  text-sm" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+              <Smile className="w-5" /> <span className="hidden sm:inline-block ">Add Emoji</span>
             </Button>
             {/* Conditionally render the Emoji Picker */}
             {showEmojiPicker && (
@@ -117,7 +114,7 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
             )}
           </div>
 
-          <Button className="relative bg-gray-300 text-gray-900 px-3 py-1 hover:bg-gray-300 text-sm">
+          <Button className="relative bg-gray-300 dark:bg-[#404140] text-foreground px-3 py-1 hover:bg-gray-300 dark:hover:bg-[#404140] text-sm">
             {/* Hidden file input */}
             <input
               type="file"
@@ -128,16 +125,16 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
             />
 
             {/* Custom button that acts as a label */}
-            <label htmlFor="cover-upload" className="cursor-pointer flex items-center justify-center gap-1 rounded text-sm ">
+            <label htmlFor="cover-upload" className="cursor-pointer flex items-center justify-center gap-1 rounded ">
               <ImageIcon className="w-5" />
-              Add Cover
+              <span className="hidden sm:inline-block"> Add Cover</span>
             </label>
           </Button>
-          <div className="rounded bg-gray-300 px-3">
-            <Select onValueChange={(v) => colorSelect(v)} onOpenChange={() => setShowSelect(true)}>
-              <SelectTrigger id="color" className="bg-gray-300 text-gray-900 border-0 outline-none flex items-center gap-x-1 p-0 m-0 h-8">
+          <div className="rounded bg-gray-300 dark:bg-[#404140] px-3">
+            <Select onValueChange={(v) => colorSelect(v)} onOpenChange={() => setShowSelect(true)} defaultValue={colorId?.toString()}>
+              <SelectTrigger id="color" className="bg-gray-300 text-foreground dark:bg-[#404140] border-0 outline-none flex items-center gap-x-1 p-0 m-0 h-8">
                 <PaletteIcon className="w-5" />
-                <SelectValue placeholder="Add Color" />
+                <SelectValue placeholder="Add Color" className="hidden sm:inline-block" />
               </SelectTrigger>
               <SelectContent className="bg-background flex items-center justify-center">
                 {colors?.map((color: Color, i: number) => (
@@ -153,8 +150,8 @@ const NoteBanner = ({colors}: {colors: Color[]}) => {
           </div>
         </div>
         <div className="mt-3 flex items-center gap-2">
-          {loading && <Spinner color="border-purple-600" />}
-          <Input placeholder="Untitled" className="border-0 outline-none focus:outline-none font-bold text-4xl " defaultValue="Untitled" onChange={(e) => setTitle(e.target.value)} />{" "}
+          {loading && <Spinner color="border-primary" />}
+          <Input placeholder="Untitled" className="border-0 outline-none focus:outline-none font-bold text-2xl md:text-4xl " defaultValue={title} onChange={(e) => setTitle(e.target.value)} />{" "}
         </div>
       </div>
     </>

@@ -12,9 +12,9 @@ const AddNote = ({colors}: {colors: Color[]}) => {
   return (
     <NoteProvider>
       <div className="mx-auto pt-3">
-        <SaveAndShareNote />
+        <SaveAndShareNote edit={false} />
         <NoteBanner colors={colors} />
-        <Editor />
+        <Editor initialContent="" edit={false} />
       </div>
     </NoteProvider>
   );

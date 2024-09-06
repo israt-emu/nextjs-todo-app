@@ -33,5 +33,5 @@ export const lightGrayTheme = {
     highlights: lightDefaultTheme.colors!.highlights,
   },
   borderRadius: 4,
-  fontFamily: "Helvetica Neue, sans-serif",
+  fontFamily: "Nunito, sans-serif",
 } satisfies Theme;

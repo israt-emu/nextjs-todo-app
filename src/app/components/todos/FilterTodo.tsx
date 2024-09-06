@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, {useCallback, useState} from "react";
+import React, {useCallback} from "react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {CalendarClockIcon, CircleHelp, Clock3, Component, ListFilter, StretchVertical} from "lucide-react";
+import {CalendarClockIcon, CircleHelp, Component, Flag, ListFilter} from "lucide-react";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {Category} from "@/app/types/category";
@@ -69,12 +70,47 @@ const FilterTodo = ({categories}: {categories: Category[]}) => {
             </div>
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-1">
-                <CalendarClockIcon className="w-4" />
-                <div>Reminder</div>
+                <Flag className="w-4" />
+                <div>Priority</div>
               </div>
-              <Select onValueChange={(value) => createQueryString("reminder", value)} defaultValue={searchParams.get("reminder")?.toString() || "all"}>
+              <Select onValueChange={(value) => createQueryString("priority", value)} defaultValue={searchParams.get("priority")?.toString() || "all"}>
                 <SelectTrigger className="w-3/6 border-0 bg-transparent">
-                  <SelectValue placeholder="Reminder" />
+                  <SelectValue placeholder="Priority" />
+                </SelectTrigger>
+                <SelectContent className="bg-background  border border-gray-300">
+                  <SelectItem className="hover:text-gray-700" value="all">
+                    All(default)
+                  </SelectItem>
+
+                  <SelectItem value="LOW">
+                    <div className="flex items-center">
+                      <Flag className="text-green-600 w-5 mr-2" />
+                      <span>Low</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="MEDIUM">
+                    <div className="flex items-center">
+                      <Flag className="text-yellow-600 w-5 mr-2" />
+                      <span>Medium</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="HIGH">
+                    <div className="flex items-center">
+                      <Flag className="text-red-600 w-5 mr-2" />
+                      <span>High</span>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center gap-1">
+                <CalendarClockIcon className="w-4" />
+                <div>Due Date</div>
+              </div>
+              <Select onValueChange={(value) => createQueryString("dueDate", value)} defaultValue={searchParams.get("dueDate")?.toString() || "all"}>
+                <SelectTrigger className="w-3/6 border-0 bg-transparent">
+                  <SelectValue placeholder="Due Date" />
                 </SelectTrigger>
                 <SelectContent className="bg-background border border-gray-300">
                   <SelectItem value="all">All(default)</SelectItem>

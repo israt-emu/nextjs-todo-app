@@ -62,9 +62,9 @@ const SortingTodo = () => {
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-1">
                 <Clock3 className="w-4" />
-                <div>Reminder</div>
+                <div>Due Date</div>
               </div>
-              <Select onValueChange={(value) => createQueryString("reminder", value)}>
+              <Select onValueChange={(value) => createQueryString("dueDate", value)}>
                 <SelectTrigger className="w-3/6 border-0 bg-transparent">
                   <SelectValue placeholder="Select Order" />
                 </SelectTrigger>

@@ -2,6 +2,7 @@
 
 import {revalidateTag} from "next/cache";
 import {Note} from "../types/note";
+import {prisma} from "@/lib/prisma";
 
 export const createNote = async (note: Note) => {
   try {
@@ -20,9 +21,9 @@ export const createNote = async (note: Note) => {
     console.log(error);
   }
 };
-export const getAllNotes = async () => {
+export const getAllNotes = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/notes`, {
+    const response = await fetch(`http://localhost:3000/api/notes?userId=${id}`, {
       next: {tags: ["notes"]},
     });
     // Ensure to check and parse the response
@@ -37,20 +38,55 @@ export const getAllNotes = async () => {
 };
 export const findNoteById = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/color/getSingle`, {
-      method: "POST",
+    const note = await prisma?.note.findUnique({where: {id}, include: {color: true}});
+    // const response = await fetch(`http://localhost:3000/api/color/getSingle`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({id}),
+    // });
+
+    // if (!response.ok) {
+    //   throw new Error("Failed to get color");
+    // }
+    // const color = await response.json();
+    // console.log(color);
+    return note;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const updateNote = async (id: number, note: Note) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/notes`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({id, note}),
+    });
+
+    revalidateTag("notes");
+    const updatedNote = await response.json();
+    return updatedNote;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const deleteNote = async (id: number) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/notes`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({id}),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to get color");
-    }
-    const color = await response.json();
-    console.log(color);
-    return color;
+    revalidateTag("notes");
+    const note = await response.json();
+    return note;
   } catch (error) {
     console.log(error);
   }

@@ -11,7 +11,8 @@ import {usePathname} from "next/navigation";
 import Link from "next/link";
 import {NavItem, navItems} from "@/app/constants/nav-items";
 import {Icons} from "../icons";
-const Sidebar = ({categories, user}: any) => {
+import {TodoAddProps} from "@/app/types/props";
+const Sidebar = ({categories, user}: TodoAddProps) => {
   const [collapse, setCollapse] = useState(false);
   const handleToggle = () => {
     setCollapse(!collapse);
@@ -49,7 +50,7 @@ const Sidebar = ({categories, user}: any) => {
 
         {collapse || (
           <div className="flex-1">
-            <CategoryList categories={categories} />
+            <CategoryList categories={categories} user={user} />
           </div>
         )}
       </div>

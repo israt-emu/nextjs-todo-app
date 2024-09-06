@@ -52,3 +52,55 @@ export async function GET() {
     );
   }
 }
+export async function PATCH(request: Request) {
+  try {
+    const data = await request.json();
+
+    const res = await prisma?.user.update({
+      where: {userId: Number(data?.userId)},
+      data,
+    });
+
+    return Response.json(
+      sendResponse<Partial<User>>({
+        statusCode: 200,
+        success: true,
+        message: "User updated successfully!",
+        data: res,
+      })
+    );
+  } catch (error) {
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any).message,
+      })
+    );
+  }
+}
+export async function DELETE(request: Request) {
+  try {
+    const {id} = await request.json();
+    const res = await prisma?.user.delete({
+      where: {userId: Number(id)},
+    });
+
+    return Response.json(
+      sendResponse<Partial<User>>({
+        statusCode: 200,
+        success: true,
+        message: "User deleted successfully!",
+        data: res,
+      })
+    );
+  } catch (error) {
+    return Response.json(
+      sendResponse({
+        statusCode: 400,
+        success: false,
+        message: (error as any).message,
+      })
+    );
+  }
+}

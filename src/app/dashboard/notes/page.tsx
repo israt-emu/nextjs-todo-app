@@ -6,11 +6,13 @@ import Link from "next/link";
 import {getAllNotes} from "@/app/actions/note";
 import {Note} from "@/app/types/note";
 import SingleNote from "@/app/components/notes/SingleNote";
+import {getUserFromToken} from "@/app/actions/cookie";
 const StickyNotes = async () => {
-  const notes = await getAllNotes();
+  const user = await getUserFromToken();
+  const notes = await getAllNotes(user?.userId as number);
 
   return (
-    <div className=" mx-auto relative mt-5">
+    <div className="sm:w-11/12 lg:w-full mx-auto relative mt-5 ">
       <h1 className="text-2xl font-semibold border-b border-gray-300 pb-3 mb-5">Notes</h1>
       {notes?.data?.length === 0 ? (
         <>
@@ -19,7 +21,7 @@ const StickyNotes = async () => {
         </>
       ) : (
         <>
-          <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {notes?.data?.map((note: Note, i: number) => (
               <SingleNote key={i} note={note} />
             ))}

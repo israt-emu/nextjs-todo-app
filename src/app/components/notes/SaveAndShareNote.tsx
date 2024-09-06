@@ -3,15 +3,22 @@ import React from "react";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import {CheckSquare, Share} from "lucide-react";
 import {useNote} from "@/contexts/NoteContext";
-import {createNote} from "@/app/actions/note";
+import {createNote, updateNote} from "@/app/actions/note";
 import {toast} from "@/components/ui/use-toast";
-const SaveAndShareNote = () => {
-  const {note, loading, setLoading} = useNote();
+import {SaveShareProps} from "@/app/types/props";
+const SaveAndShareNote = ({edit, noteId}: SaveShareProps) => {
+  const {note, setLoading} = useNote();
+  //saving note
   const saveNote = async () => {
     setLoading(true);
-    const res = await createNote(note);
+    let res;
+    if (edit) {
+      res = await updateNote(noteId as number, note);
+    } else {
+      res = await createNote(note);
+    }
     setLoading(false);
-    console.log(res);
+
     if (res?.success) {
       toast({
         title: "Note saved Successfully",
@@ -19,7 +26,7 @@ const SaveAndShareNote = () => {
     } else {
       toast({
         variant: "destructive",
-        title: "Note saved Successfully",
+        title: "An error occured!",
       });
     }
   };

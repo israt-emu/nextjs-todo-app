@@ -7,7 +7,7 @@ export type Note = {
   coverImg?: string;
   colorId?: number;
   coverEmoji?: string;
-  userId: number;
+  userId?: number;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   color?: Color;

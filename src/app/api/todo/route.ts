@@ -8,11 +8,11 @@ import {NextRequest} from "next/server";
 export async function POST(request: Request) {
   try {
     const result = await prisma.$transaction(async (tx) => {
-      const {title, userId, colorId, reminder, categories} = await request.json();
+      const {title, userId, reminder, priority, dueDate, categories} = await request.json();
 
       // First creating todo
       const newTodo = await tx.todo.create({
-        data: {title, userId, colorId, reminder},
+        data: {title, userId, reminder, priority, dueDate},
       });
 
       if (newTodo.id && categories?.length > 0) {
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 export async function GET(request: NextRequest) {
   try {
     const searchParams = Object.fromEntries(request.nextUrl.searchParams.entries());
-    const {category, reminder, orderBy, order, completed, todoSearch} = searchParams;
+    const {category, dueDate, priority, orderBy, order, completed, todoSearch, userId} = searchParams;
     let whereClause: any = {};
     // Filter by category if provided
     if (category && category !== "all") {
@@ -63,6 +63,12 @@ export async function GET(request: NextRequest) {
           },
         },
       };
+    }
+    if (userId) {
+      whereClause.userId = Number(userId);
+    }
+    if (priority && priority !== "all") {
+      whereClause.priority = priority;
     }
     //filter by completed
     if (completed === "true") {
@@ -79,49 +85,49 @@ export async function GET(request: NextRequest) {
     }
 
     // Filter by reminder
-    if (reminder && reminder !== "all") {
+    if (dueDate && dueDate !== "all") {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       //todays todo
-      if (reminder === "today") {
+      if (dueDate === "today") {
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
 
-        whereClause.reminder = {
+        whereClause.dueDate = {
           gte: today,
           lt: tomorrow,
         };
       }
       //this week todos
-      if (reminder === "this-week") {
+      if (dueDate === "this-week") {
         const startOfWeek = new Date(today);
         startOfWeek.setDate(today.getDate() - today.getDay()); // Set to Sunday
 
         const endOfWeek = new Date(startOfWeek);
         endOfWeek.setDate(endOfWeek.getDate() + 7); // Set to next Sunday
 
-        whereClause.reminder = {
+        whereClause.dueDate = {
           gte: startOfWeek,
           lt: endOfWeek,
         };
       }
       //this month todos
-      if (reminder === "this-month") {
+      if (dueDate === "this-month") {
         const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
         const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         endOfMonth.setHours(23, 59, 59, 999); // Set to end of last day of month
 
-        whereClause.reminder = {
+        whereClause.dueDate = {
           gte: startOfMonth,
           lte: endOfMonth,
         };
       }
-      if (reminder === "next-30") {
+      if (dueDate === "next-30") {
         const today = new Date();
         const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
 
-        whereClause.reminder = {
+        whereClause.dueDate = {
           gte: today,
           lte: thirtyDaysFromNow,
         };
@@ -143,7 +149,6 @@ export async function GET(request: NextRequest) {
       orderBy: orderClause,
       include: {
         categories: {include: {category: true}},
-        color: true,
       },
     });
     // console.log(todos);

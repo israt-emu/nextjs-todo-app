@@ -31,11 +31,7 @@ export async function POST(request: Request) {
 }
 export async function GET() {
   try {
-    const categories = await prisma?.category.findMany({
-      include: {
-        color: true,
-      },
-    });
+    const categories = await prisma?.category.findMany({});
     return Response.json(
       sendResponse<Category[]>({
         statusCode: 200,

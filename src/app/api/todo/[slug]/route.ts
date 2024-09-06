@@ -39,7 +39,7 @@ export async function DELETE(request: Request, {params}: {params: {slug: string}
 export async function GET({params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
-    const todo = await prisma?.todo.findUnique({where: {id: Number(slug)}, include: {categories: {include: {category: true}}, color: true}});
+    const todo = await prisma?.todo.findUnique({where: {id: Number(slug)}, include: {categories: {include: {category: true}}}});
     return Response.json(
       sendResponse<Partial<Todo>>({
         statusCode: 200,

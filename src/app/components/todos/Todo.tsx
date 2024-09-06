@@ -1,18 +1,13 @@
 "use client";
 
-import {Checkbox} from "@/components/ui/checkbox";
 import {toast} from "@/components/ui/use-toast";
-import {CalendarX, FilePenLine, Trash2} from "lucide-react";
-import {format} from "date-fns";
 import {deleteTodo, updateTodoStatus} from "@/app/actions/todo";
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
-import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {TodoUpdateProps} from "@/app/types/props";
 import {useState} from "react";
-import Spinner from "@/components/ui/Spinner";
-import TodoUpdateForm from "./TodoUpdateForm";
+import TodoListView from "./TodoListView";
+import TodoCardView from "./TodoCardView";
 
-export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
+const SingleTodo = ({todo, categories, params, setIsSuccess}: any) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const todoDelete = async () => {
@@ -34,8 +29,15 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
     setLoading(true);
     const data = await updateTodoStatus(todo?.id, e as boolean);
     setLoading(false);
-    if (data.success) {
+    if (data?.success) {
+      if (data?.data?.completed) {
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 5000);
+      }
     }
+
     if (!data.success) {
       toast({
         variant: "destructive",
@@ -46,49 +48,14 @@ export function SingleTodo({todo, categories, colors}: TodoUpdateProps) {
 
   return (
     <>
-      <div className="flex flex-row justify-between items-center p-4 my-1 border  border-b-gray-300">
-        <div className="flex items-center gap-2">
-          <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />
-          <div className="text-xs sm:text-sm capitalize">
-            <div className={`${todo.completed && "text-gray-500"}`}>{todo?.title}</div>
-
-            {todo?.reminder && (
-              <div className={`${todo.completed && "text-gray-500"} flex flex-row gap-1 items-center text-xs sm:text-sm`}>
-                <CalendarX className="w-3 h-3 sm:w-4 sm:h-4" />
-                <p className="h-4">{format(todo?.reminder, "dd/MM/yyyy")}</p>
-              </div>
-            )}
-          </div>
-        </div>
-        <div>{loading && <Spinner color="border-secondary" />}</div>
-        <div className="mr-4 flex gap-2 items-center">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Trash2 className="cursor-pointer mr-3 w-4" onClick={todoDelete} />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Delete</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
-          <Sheet>
-            <SheetTrigger asChild>
-              <FilePenLine className="cursor-pointer w-4" />
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Edit Todo</SheetTitle>
-                <SheetDescription> Click save when you are done.</SheetDescription>
-              </SheetHeader>
-              <div className="grid gap-4 py-4">
-                <TodoUpdateForm categories={categories} colors={colors} todo={todo} />
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
+      {params?.view === "grid" ? (
+        //
+        //
+        <TodoCardView todo={todo} categories={categories} loading={loading} todoDelete={todoDelete} changeStatus={changeStatus} />
+      ) : (
+        <TodoListView todo={todo} categories={categories} loading={loading} todoDelete={todoDelete} changeStatus={changeStatus} />
+      )}
     </>
   );
-}
+};
+export default SingleTodo;
