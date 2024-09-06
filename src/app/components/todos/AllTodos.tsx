@@ -22,7 +22,7 @@ const AllTodos = ({categories, todos, user, searchParams}: any) => {
           <Player autoplay loop={false} animationData={completedSuccess} />
         </div>
       )}
-      <div className="relative w-full md:w-9/12 mx-auto z-20">
+      <div className="relative w-full md:w-11/12 lg:w-9/12 mx-auto z-20">
         <div className="flex justify-between items-center pb-4  border-b border-gray-300">
           <div className="flex gap-1 items-center">
             <div className="text-2xl font-semibold ">Todos</div>
