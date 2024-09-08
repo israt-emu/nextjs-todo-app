@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import {Avatar, AvatarImage} from "@/components/ui/avatar";
+import {Avatar} from "@/components/ui/avatar";
 import {Card, CardContent, CardFooter} from "@/components/ui/card";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";

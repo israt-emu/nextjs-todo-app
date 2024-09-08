@@ -15,7 +15,7 @@ import {priorityColors} from "@/app/constants/colors";
 const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus}: any) => {
   return (
     <>
-      <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg "bg-gray-200"} border-gray-300 mt-2 z-20`}>
+      <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg "bg-gray-200"} gradient1  dark:gradient2 mt-2 z-20`}>
         <CardHeader>
           <div className="flex items-center gap-2">
             <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />
@@ -33,7 +33,7 @@ const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus}: any
             </div>
           </div>
         </CardHeader>
-        <CardFooter className="flex justify-end items-center gap-2 text-gray-900">
+        <CardFooter className="flex justify-end items-center gap-2 text-gray-900 dark:text-gray-200">
           <div className="mr-4 flex gap-2 items-center">
             <div>{loading && <Spinner color="border-primary" />}</div>
             <TooltipProvider>

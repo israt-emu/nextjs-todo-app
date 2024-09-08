@@ -46,7 +46,7 @@
     --popover: 150 6% 7%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 118 29% 43%;
+    --primary: 53 23% 31%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 135 5% 15%;
@@ -132,10 +132,28 @@
     background: rgb(145, 214, 164);
     background: linear-gradient(209deg, rgba(145, 214, 164, 1) 26%, rgba(191, 232, 203, 0.8491771708683473) 63%, rgba(221, 217, 217, 1) 72%);
   }
+  .gradient1 {
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #e8cbc0, #636fa4);
+  }
+  .gradient2 {
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #3c3b3f, #605c3c);
+  }
+  .btn-gradient1 {
+    background: #e8cbc0;
+    background: -webkit-linear-gradient(to right, #636fa4, #e8cbc0);
+    background: linear-gradient(to right, #636fa4, #e8cbc0);
+  }
+  .btn-gradient2 {
+    background: #e8cbc0;
+    background: -webkit-linear-gradient(to right, #636fa4, #e8cbc0);
+    background: linear-gradient(to right, #3c3b3f, #605c3c);
+  }
   .login-bg {
     background-image: url("../assets/background.svg");
     background-position: center;
-    /* color: #266633; */
+    color: #413d25;
   }
   .block {
     background-color: #bababa;

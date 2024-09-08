@@ -24,7 +24,7 @@ const TodoView = () => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="w-6 h-6 rounded bg-gray-300 flex justify-center items-center cursor-pointer" onClick={() => createQueryString("view", "list")}>
+              <div className="w-6 h-6 rounded bg-gray-300 dark:bg-[#404140] flex justify-center items-center cursor-pointer" onClick={() => createQueryString("view", "list")}>
                 <List className="w-5" />
               </div>
             </TooltipTrigger>

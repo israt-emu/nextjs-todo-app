@@ -31,9 +31,9 @@ const AllTodos = ({categories, todos, user, searchParams}: any) => {
         </div>
 
         <div>
-          <div className="py-3  border-b border-gray-300 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 items-center justify-between">
+          <div className="py-3  border-b border-gray-300 grid grid-cols-1 md:grid-cols-2 items-center justify-between">
             <SearchTodo />
-            <div className="col-span-1 md:col-span-2 lg:col-span-1 flex items-center justify-center md:justify-end gap-2">
+            <div className="col-span-1 flex items-center justify-center md:justify-end gap-2">
               <ResetFilter />
               <FilterTodo categories={categories} />
               <SortingTodo />
@@ -45,7 +45,7 @@ const AllTodos = ({categories, todos, user, searchParams}: any) => {
           <div className={`grid  ${searchParams?.view === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" : "grid-cols-1"} `}>
             {todos?.map((todo: Todo, i: number) => (
               <div key={i}>
-                <SingleTodo todo={todo} categories={categories?.data} params={searchParams} setIsSuccess={setIsSuccess} />
+                <SingleTodo todo={todo} categories={categories} params={searchParams} setIsSuccess={setIsSuccess} />
               </div>
             ))}
           </div>

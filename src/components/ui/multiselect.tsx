@@ -71,7 +71,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
   };
 
   const toggleOption = (value: number) => {
-    const newSelectedValues = selectedValues?.includes(value) ? selectedValues.filter((v) => v !== value) : [...selectedValues, value];
+    const newSelectedValues = selectedValues.includes(value) ? selectedValues.filter((v) => v !== value) : [...selectedValues, value];
     setSelectedValues(newSelectedValues);
     onValueChange(newSelectedValues);
   };
@@ -86,16 +86,16 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
   };
 
   const clearExtraOptions = () => {
-    const newSelectedValues = selectedValues?.slice(0, maxCount);
+    const newSelectedValues = selectedValues.slice(0, maxCount);
     setSelectedValues(newSelectedValues);
     onValueChange(newSelectedValues);
   };
 
   const toggleAll = () => {
-    if (selectedValues?.length === options?.length) {
+    if (selectedValues.length === options.length) {
       handleClear();
     } else {
-      const allValues = options?.map((option) => option.id);
+      const allValues = options.map((option) => option.id);
       setSelectedValues(allValues);
       onValueChange(allValues);
     }
@@ -108,7 +108,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
           {selectedValues?.length > 0 ? (
             <div className="flex justify-between items-center w-full">
               <div className="flex flex-wrap items-center">
-                {selectedValues?.slice(0, maxCount)?.map((value) => {
+                {selectedValues.slice(0, maxCount)?.map((value) => {
                   const option = options?.find((o) => o?.id === Number(value));
                   // const IconComponent = option?.icon;
                   return (
@@ -179,7 +179,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                         <CheckIcon className="h-4 w-4" />
                       </div>
                       {/* {option.icon && <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />} */}
-                      <span className={`hover:text-black ]`}>{option.name}</span>
+                      <span className={`hover:text-black ]`}>{option?.name}</span>
                     </CommandItem>
                   );
                 })}

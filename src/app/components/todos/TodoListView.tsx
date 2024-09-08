@@ -11,7 +11,7 @@ import {priorityColors} from "@/app/constants/colors";
 
 const TodoListView = ({todo, categories, loading, todoDelete, changeStatus}: any) => {
   return (
-    <div className="flex flex-row justify-between items-center p-4 my-1 border  border-b-gray-300 z-20">
+    <div className="flex flex-row justify-between items-center p-4 my-1 border  z-20 gradient1 dark:gradient2">
       <div className="flex items-center gap-2">
         <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />
         <div className="text-xs sm:text-sm capitalize">
