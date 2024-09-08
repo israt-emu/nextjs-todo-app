@@ -32,14 +32,14 @@ const MobileNav = () => {
                     const Icon = (Icons as any)[item.icon || "arrowRight"];
                     return (
                       item.href && (
-                        <Link key={index} href={item.href} className={cn("rounded-sm hover:bg-gray-100 dark:hover:bg-[#404140] flex items-center p-2 space-x-3")}>
+                        <Link key={index} href={item?.href} className={cn("rounded-sm hover:bg-gray-100 dark:hover:bg-[#404140] flex items-center p-2 space-x-3")}>
                           <Icon className={item.className} />
                           <span className="truncate">{item.title}</span>
                         </Link>
                       )
                     );
                   })}
-                  <Link href="#" className={cn(" p-2 space-x-3 flex items-center hover:bg-gray-100 dark:hover:bg-[#404140] rounded-sm")}>
+                  <Link href="/dashboard/user-profile" className={cn(" p-2 space-x-3 flex items-center hover:bg-gray-100 dark:hover:bg-[#404140] rounded-sm")}>
                     <User className="text-orange-700 dark:text-orange-500" />
                     <span className="truncate">Profile</span>
                   </Link>

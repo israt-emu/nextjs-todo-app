@@ -54,3 +54,4 @@
 12. user profile skeleton
 13. dashboard
 14. github and google login
+15. not found page

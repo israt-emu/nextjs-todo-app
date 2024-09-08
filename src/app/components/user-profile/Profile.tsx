@@ -113,11 +113,11 @@ export default function UserProfile({user}: {user: User}) {
             </>
           </Avatar>
           <div className="space-y-1">
-            <Input id="name" name="name" defaultValue={user?.name} className="border-0 outline-none focus:outline-none text-2xl font-bold py-0 h-7" onChange={handleFormData} placeholder="Your Name" />
+            <Input id="name" name="name" defaultValue={user?.name} className="border-0 outline-none focus:outline-none text-xl sm:text-2xl font-bold py-0 h-7" onChange={handleFormData} placeholder="Your Name" />
             <Input id="profession" name="profession" placeholder="Your Profession" defaultValue={user?.profession} className="border-0 outline-none focus:outline-none text-gray-500 dark:text-gray-400 h-6" onChange={handleFormData} />
           </div>
         </div>
-        <p className="text-gray-500 dark:text-gray-400">{formData?.bio || user?.bio}</p>
+        <p className="text-gray-500 dark:text-gray-400 w-10/12">{formData?.bio ? user?.bio : "--------- your bio ----------"}</p>
       </div>
       <div className="space-y-3 lg:col-span-2">
         <Card className="pt-4">
