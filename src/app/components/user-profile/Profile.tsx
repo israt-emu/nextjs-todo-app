@@ -54,7 +54,7 @@ export default function UserProfile({user}: {user: User}) {
     reader.onloadend = async () => {
       const base64data = reader.result;
 
-      const response = await fetch("http://localhost:3000/api/cloudinary", {
+      const response = await fetch(`${process.env.NEXT_API_URL}/api/cloudinary`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({data: base64data}),

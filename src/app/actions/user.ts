@@ -6,7 +6,7 @@ import {User} from "../types/user";
 
 export const createUser = async (user: any) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/user`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const createUser = async (user: any) => {
 };
 export const getAllUser = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/user`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/user`, {
       next: {tags: ["users"]},
     });
     // Ensure to check and parse the response
@@ -52,7 +52,7 @@ export const findUserByEmail = async (email: string) => {
 };
 export const updateUser = async (data: Partial<User>) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/user`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/user`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export const updateUser = async (data: Partial<User>) => {
 };
 export const deleteUser = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/user`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/user`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

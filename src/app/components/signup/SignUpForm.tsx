@@ -130,7 +130,7 @@ const SignUpForm = () => {
         </Button>
         <p className="px-6 text-xs md:text-sm text-center  align-bottom mt-2">
           Already have an account?
-          <Link href="/signin" className="hover:underline text-green-700 font-bold ml-1">
+          <Link href="/signin" className="hover:underline text-primary font-bold ml-1">
             Please Login
           </Link>
           .

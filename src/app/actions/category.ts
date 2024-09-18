@@ -4,7 +4,7 @@ import {Category} from "../types/category";
 
 export const createCategory = async (cat: Category) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/category`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/category`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const createCategory = async (cat: Category) => {
 };
 export const getAllCategory = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/category`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/category`, {
       next: {tags: ["cat"]},
     });
     // Ensure to check and parse the response

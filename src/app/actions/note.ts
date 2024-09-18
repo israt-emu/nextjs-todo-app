@@ -6,7 +6,7 @@ import {prisma} from "@/lib/prisma";
 
 export const createNote = async (note: Note) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/notes`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export const createNote = async (note: Note) => {
 };
 export const getAllNotes = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/notes?userId=${id}`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/notes?userId=${id}`, {
       next: {tags: ["notes"]},
     });
     // Ensure to check and parse the response
@@ -59,7 +59,7 @@ export const findNoteById = async (id: number) => {
 };
 export const updateNote = async (id: number, note: Note) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/notes`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/notes`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export const updateNote = async (id: number, note: Note) => {
 };
 export const deleteNote = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/notes`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/notes`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -51,7 +51,6 @@
 
 10. Shared notes or tasks
 11. modal responsive
-12. user profile skeleton
-13. dashboard
-14. github and google login
-15. not found page
+12. dashboard
+13. github and google login
+14. not found page

@@ -46,7 +46,7 @@
     --popover: 150 6% 7%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 53 23% 31%;
+    --primary: 134 57% 23%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 135 5% 15%;
@@ -55,7 +55,7 @@
     --muted: 130 5% 22%;
     --muted-foreground: 130 5% 49%;
 
-    --accent: 133 45% 14%;
+    --accent: 134 57% 23%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
@@ -134,11 +134,12 @@
   }
   .gradient1 {
     border-image-slice: 1;
-    border-image-source: linear-gradient(to right, #e8cbc0, #636fa4);
+    /* border-image-source: linear-gradient(to right, #e8cbc0, #636fa4); */
+    border-image-source: linear-gradient(to right, #e8cbc0, #8544a0);
   }
   .gradient2 {
     border-image-slice: 1;
-    border-image-source: linear-gradient(to right, #3c3b3f, #605c3c);
+    border-image-source: linear-gradient(to right, #134e5e, #71b280);
   }
   .btn-gradient1 {
     background: #e8cbc0;
@@ -147,13 +148,13 @@
   }
   .btn-gradient2 {
     background: #e8cbc0;
-    background: -webkit-linear-gradient(to right, #636fa4, #e8cbc0);
-    background: linear-gradient(to right, #3c3b3f, #605c3c);
+    background: -webkit-linear-gradient(to right, #134e5e, #71b280);
+    background: linear-gradient(to right, #134e5e, #71b280);
   }
   .login-bg {
     background-image: url("../assets/background.svg");
     background-position: center;
-    color: #413d25;
+    color: #195a28;
   }
   .block {
     background-color: #bababa;

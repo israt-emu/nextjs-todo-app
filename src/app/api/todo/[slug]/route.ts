@@ -1,8 +1,9 @@
 import {prisma} from "@/lib/prisma";
 import {sendResponse} from "@/lib/utils";
 import {Todo} from "@prisma/client";
+import {NextRequest, NextResponse} from "next/server";
 
-export async function DELETE(request: Request, {params}: {params: {slug: string}}) {
+export async function DELETE(request: NextRequest, {params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
     const result = await prisma.$transaction(async (tx) => {
@@ -18,7 +19,7 @@ export async function DELETE(request: Request, {params}: {params: {slug: string}
 
       return "Todo and associated categories deleted successfully!";
     });
-    return Response.json(
+    return NextResponse.json(
       sendResponse({
         statusCode: 200,
         success: true,
@@ -26,7 +27,7 @@ export async function DELETE(request: Request, {params}: {params: {slug: string}
       })
     );
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       sendResponse({
         statusCode: 400,
         success: false,
@@ -36,11 +37,11 @@ export async function DELETE(request: Request, {params}: {params: {slug: string}
   }
 }
 //get todo by id
-export async function GET({params}: {params: {slug: string}}) {
+export async function GET(request: NextRequest, {params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
     const todo = await prisma?.todo.findUnique({where: {id: Number(slug)}, include: {categories: {include: {category: true}}}});
-    return Response.json(
+    return NextResponse.json(
       sendResponse<Partial<Todo>>({
         statusCode: 200,
         success: true,
@@ -49,7 +50,7 @@ export async function GET({params}: {params: {slug: string}}) {
       })
     );
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       sendResponse({
         statusCode: 400,
         success: false,
@@ -59,7 +60,7 @@ export async function GET({params}: {params: {slug: string}}) {
   }
 }
 //update todo
-export async function PATCH(request: Request, {params}: {params: {slug: string}}) {
+export async function PATCH(request: NextRequest, {params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
     const {data, newCategories} = await request.json();
@@ -94,7 +95,7 @@ export async function PATCH(request: Request, {params}: {params: {slug: string}}
       return {updateTodo};
     });
 
-    return Response.json(
+    return NextResponse.json(
       sendResponse<Partial<Todo>>({
         statusCode: 200,
         success: true,
@@ -103,7 +104,7 @@ export async function PATCH(request: Request, {params}: {params: {slug: string}}
       })
     );
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       sendResponse({
         statusCode: 400,
         success: false,

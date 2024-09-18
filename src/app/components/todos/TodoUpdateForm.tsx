@@ -70,7 +70,7 @@ const TodoUpdateForm = ({categories, todo}: TodoUpdateProps) => {
       });
     }
   }
-
+  console.log(selectedCategories, categories);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col   content-center gap-4">

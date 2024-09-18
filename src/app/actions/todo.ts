@@ -7,7 +7,7 @@ import {revalidateTag} from "next/cache";
 
 export const createTodo = async (todo: any) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const getAllTodo = async (searchParams: any) => {
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value as any)}`)
       .join("&");
     const response = await fetch(
-      `http://localhost:3000/api/todo?${queryString}`,
+      `${process.env.NEXT_API_URL}/api/todo?${queryString}`,
 
       {
         next: {tags: ["todos"]},
@@ -43,7 +43,7 @@ export const getAllTodo = async (searchParams: any) => {
 };
 export const getTodoById = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo/${id}`);
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}`);
 
     const todo = await response.json();
     return todo;
@@ -53,7 +53,7 @@ export const getTodoById = async (id: number) => {
 };
 export const deleteTodo = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}`, {
       method: "DELETE",
     });
 
@@ -66,7 +66,7 @@ export const deleteTodo = async (id: number) => {
 };
 export const updateTodo = async (id: number, updateData: {data: object; newCategories: number[]}) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo/${id}`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export const updateTodo = async (id: number, updateData: {data: object; newCateg
 };
 export const updateTodoStatus = async (id: number, completed: boolean) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/todo/change-status`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/change-status`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -30,3 +30,11 @@ export function debounce(fn: (value: string) => void, delay: number, value: stri
     timer = setTimeout(() => fn(value), delay);
   })();
 }
+
+export const cloudinaryConfig = {
+  api: {
+    bodyParser: {
+      sizeLimit: "50mb",
+    },
+  },
+};

@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import {Nunito} from "next/font/google";
 import "../globals.css";
+import {ModeToggle} from "../components/navbar/theme";
 
 const inter = Nunito({subsets: ["latin"]});
 
@@ -16,7 +17,9 @@ export default function SignUpLayout({
 }>) {
   return (
     <section>
-      {" "}
+      <div className="flex items-center justify-end py-3 px-4">
+        <ModeToggle />
+      </div>
       <div className="w-8/12 mx-auto my-14">{children}</div>
     </section>
   );

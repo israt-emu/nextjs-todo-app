@@ -1,7 +1,7 @@
 "use server";
 export const getAllColor = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/color`);
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/color`);
     // Ensure to check and parse the response
     if (!response.ok) {
       throw new Error("Failed to get colors");
@@ -14,7 +14,7 @@ export const getAllColor = async () => {
 };
 export const findColorById = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/color/getSingle`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/color/getSingle`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

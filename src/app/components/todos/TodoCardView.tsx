@@ -15,7 +15,7 @@ import {priorityColors} from "@/app/constants/colors";
 const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus}: any) => {
   return (
     <>
-      <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg "bg-gray-200"} gradient1  dark:gradient2 mt-2 z-20`}>
+      <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg dark:backdrop-blur-md dark:bg-gray-700/30 border border-gray-300 dark:border-gray-900 mt-2 z-20`}>
         <CardHeader>
           <div className="flex items-center gap-2">
             <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />
