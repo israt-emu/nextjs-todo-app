@@ -156,9 +156,6 @@
     background-position: center;
     color: #195a28;
   }
-  .block {
-    background-color: #bababa;
-  }
 }
 
 @layer base {

@@ -36,22 +36,10 @@ export const getAllNotes = async (id: number) => {
     console.log(error);
   }
 };
-export const findNoteById = async (id: number) => {
+export const findNoteById = async (id: number, userId: number) => {
   try {
-    const note = await prisma?.note.findUnique({where: {id}, include: {color: true}});
-    // const response = await fetch(`http://localhost:3000/api/color/getSingle`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({id}),
-    // });
+    const note = await prisma?.note.findUnique({where: {id, userId}, include: {color: true}});
 
-    // if (!response.ok) {
-    //   throw new Error("Failed to get color");
-    // }
-    // const color = await response.json();
-    // console.log(color);
     return note;
   } catch (error) {
     console.log(error);

@@ -14,11 +14,11 @@ export default function SignInLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section>
-      <div className="flex items-center justify-end py-3 px-4">
+    <section className="relative">
+      <div className="flex items-center justify-end py-3 px-4 absolute -top-8 right-2">
         <ModeToggle />
       </div>
-      <div className="w-8/12 mx-auto my-14">{children}</div>
+      <div className="w-10/12 sm:w-8/12 mx-auto my-14">{children}</div>
     </section>
   );
 }

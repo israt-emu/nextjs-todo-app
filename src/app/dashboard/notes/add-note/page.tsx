@@ -5,7 +5,7 @@ import React from "react";
 const AddNotePage = async () => {
   const colors = await getAllColor();
   return (
-    <div className="md:w-11/12 lg:w-full mx-auto">
+    <div className="md:w-11/12 lg:w-full mx-auto ">
       <AddNote colors={colors?.data} />
     </div>
   );

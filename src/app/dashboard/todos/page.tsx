@@ -18,7 +18,7 @@ const Todos = async ({searchParams}: {searchParams?: {[key: string]: string | st
     }
   });
   return (
-    <section className="py-5 ">
+    <section className="py-5">
       <AllTodos categories={usersCategory} user={user as User} todos={data?.data} searchParams={searchParams} />
     </section>
   );

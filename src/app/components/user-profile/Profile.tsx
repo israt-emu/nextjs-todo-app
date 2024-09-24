@@ -93,7 +93,7 @@ export default function UserProfile({user}: {user: User}) {
     }
   };
   return (
-    <div className="grid w-11/12 lg:w-10/12 gap-4 mt-6 sm:mt-0 mx-auto lg:grid-cols-3 lg:gap-6 xl:gap-10 pb-5">
+    <div className="grid w-11/12 lg:w-10/12 gap-4 mt-6 mx-auto lg:grid-cols-3 lg:gap-6 xl:gap-10 pb-5">
       <div className="space-y-4 lg:col-span-3">
         <div className="flex items-center space-x-4">
           <Avatar className="relative group w-24 h-24 border border-gray-300">

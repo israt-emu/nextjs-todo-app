@@ -4,15 +4,15 @@ import logo from "../assets/banner.png";
 import Image from "next/image";
 
 import {ModeToggle} from "./components/navbar/theme";
-import NotePlayer from "./components/NotePlayer";
+import NotePlayer from "./components/players/NotePlayer";
 
 const Home = () => {
   return (
-    <>
-      <div className="flex items-center justify-end py-3 px-4">
+    <div className="relative">
+      <div className="flex items-center justify-end py-3 px-4 absolute top-0 right-2">
         <ModeToggle />
       </div>
-      <section className="w-11/12 sm:w-10/12 md:w-9/12 mx-auto mt-2 md:mt-5 p-5 items-center justify-center">
+      <section className="w-11/12 sm:w-10/12 md:w-9/12 mx-auto mt-2 md:mt-8 p-5 items-center justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
           <NotePlayer />
           <div>
@@ -26,7 +26,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

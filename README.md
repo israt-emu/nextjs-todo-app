@@ -2,18 +2,17 @@
 
 1. Note creation and organization:
 
-   - Text notes(done)
-   - Checklists or to-do lists(done)
-   - Add category and Ability to categorize todos(done)
-   - Folders or notebooks for grouping(coming)
+   - Text notes
+   - Checklists or to-do lists
+   - Add category and Ability to categorize todos
+   - Folders or notebooks for grouping(coming...)
    - Shared notes
 
 2. Task management:
 
    - Due dates and reminders--
-   - Priority levels--
-   - Task assignments (for team use)
-   - Recurring tasks
+   - Priority levels
+   - Recurring tasks(coming...)
 
 3. Sync and backup:
 
@@ -21,36 +20,34 @@
 
 4. Search and filter:
 
-   - Full-text search (done)
-   - Advanced filtering options (done)
+   - Full-text search
+   - Advanced filtering options
 
 5. Customization:
 
-   - Themes or color-coding(done)
+   - Themes or color-coding
 
 6. Integrations:
 
    - Calendar integration(coming..)
-   - Email integration(coming..)
+   - Email integration for reminder(coming..)
 
 7. Multimedia support:
 
-   - Image attachments(done)
-   - Voice notes(coming..)
+   - Image attachments
+   - Voice notes or tasks(coming..)
    - Sketching or handwriting(coming..)
 
 8. Security:
 
-   - Password protection(done)
+   - Password protection
+   - Google and Github login(coming...)
 
 9. User interface:
 
    - Intuitive design
    - Drag-and-drop functionality(coming..)
-   - Dark mode(done)
+   - Dark mode
 
-10. Shared notes or tasks
-11. modal responsive
-12. dashboard
-13. github and google login
-14. not found page
+10. pwa
+11. todo note update delete by userid

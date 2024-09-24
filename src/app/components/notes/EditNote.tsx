@@ -11,10 +11,10 @@ const EditNote = ({colors, note}: EditNoteProps) => {
   return (
     <div>
       <NoteProvider>
-        <div className="mx-auto pt-3">
+        <div className="mx-auto pt-3 mt-6 md:mt-12">
           <SaveAndShareNote edit={true} noteId={note?.id} />
           <NoteBanner colors={colors} singleNote={note} />
-          <Editor initialContent={note?.content as string} edit={true} />
+          <Editor initialContent={note?.content as string} edit={true} editable={true} />
         </div>
       </NoteProvider>
     </div>

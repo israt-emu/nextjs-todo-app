@@ -3,7 +3,7 @@ import React from "react";
 
 const EditNoteLoading = () => {
   return (
-    <div className="space-y-2 w-11/12 mx-auto mt-8">
+    <div className="space-y-2 w-11/12 mx-auto mt-12">
       <Skeleton className="h-52 w-full" />
       <div className="flex items-center gap-1 my-2">
         <Skeleton className="h-8 w-20" />

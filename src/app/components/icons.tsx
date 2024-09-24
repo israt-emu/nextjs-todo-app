@@ -1,4 +1,4 @@
-import {CalendarDays, ChevronsRight, ClipboardList, ListChecks, LayoutDashboard, LucideIcon, LucideProps, Check} from "lucide-react";
+import {CalendarDays, ChevronsRight, ClipboardList, ListChecks, LayoutDashboard, LucideIcon, LucideProps, Check, CircleCheckBig, AlertCircle, List} from "lucide-react";
 
 export type Icon = LucideIcon;
 
@@ -8,6 +8,9 @@ export const Icons = {
   arrowRight: ChevronsRight,
   calendar: CalendarDays,
   notes: ClipboardList,
+  circleCheck: CircleCheckBig,
+  alert: AlertCircle,
+  list: List,
 
   gitHub: ({...props}: LucideProps) => (
     <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" {...props}>

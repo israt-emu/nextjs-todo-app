@@ -20,10 +20,10 @@ const TodoListView = ({todo, categories, loading, todoDelete, changeStatus}: any
             <Flag className={`${priorityColors[todo?.priority]} w-4`} />
           </div>
 
-          {todo?.reminder && (
+          {todo?.dueDate && (
             <div className={`${todo.completed && "text-gray-500"} flex flex-row gap-1 items-center text-xs sm:text-sm`}>
               <CalendarX className="w-3 h-3 sm:w-4 sm:h-4" />
-              <p className="h-4">{format(todo?.reminder, "dd/MM/yyyy")}</p>
+              <p className="h-4">{format(todo?.dueDate, "dd/MM/yyyy")}</p>
             </div>
           )}
         </div>

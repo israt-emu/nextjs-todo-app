@@ -21,7 +21,9 @@ const MobileNav = () => {
     <>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <MenuIcon className="block md:hidden " />
+          <div className="block md:hidden border rounded border-gray-300 dark:border-gray-100 p-1">
+            <MenuIcon />
+          </div>
         </SheetTrigger>
         <SheetContent side="left" className="!px-0">
           <div className="space-y-4 py-4">

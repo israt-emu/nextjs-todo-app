@@ -12,6 +12,7 @@ import {Todo} from "@/app/types/todo";
 import {User} from "@/app/types/user";
 import Player from "lottie-react";
 import completedSuccess from "../../../animations/completedSuccess.json";
+import NoDataPlayer from "../players/DataNotFound";
 
 const AllTodos = ({categories, todos, user, searchParams}: any) => {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -22,7 +23,7 @@ const AllTodos = ({categories, todos, user, searchParams}: any) => {
           <Player autoplay loop={false} animationData={completedSuccess} />
         </div>
       )}
-      <div className="relative w-full md:w-11/12 lg:w-9/12 mx-auto z-20">
+      <div className="relative w-full md:w-11/12 lg:w-9/12 mx-auto z-20 mt-6">
         <div className="flex justify-between items-center pb-4  border-b border-gray-300">
           <div className="flex gap-1 items-center">
             <div className="text-2xl font-semibold ">Todos</div>
@@ -41,6 +42,11 @@ const AllTodos = ({categories, todos, user, searchParams}: any) => {
               <CompletedSwitch />
             </div>
           </div>
+          {todos?.length === 0 && (
+            <div>
+              <NoDataPlayer />
+            </div>
+          )}
 
           <div className={`grid  ${searchParams?.view === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" : "grid-cols-1"} `}>
             {todos?.map((todo: Todo, i: number) => (

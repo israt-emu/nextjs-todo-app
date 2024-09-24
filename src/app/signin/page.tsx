@@ -1,6 +1,6 @@
 import React from "react";
 import SignInForm from "../components/signin/SignInForm";
-import LoginPlayer from "../components/signin/LoginPlayer";
+import LoginPlayer from "../components/players/LoginPlayer";
 const SignIn = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 rounded">

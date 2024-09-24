@@ -41,7 +41,7 @@ const uploadFile = async (file: File): Promise<string> => {
   });
 };
 
-const Editor = ({initialContent, edit}: {initialContent?: string; edit: boolean}) => {
+const Editor = ({initialContent, edit, editable}: {initialContent?: string; edit: boolean; editable: boolean}) => {
   const {resolvedTheme} = useTheme();
 
   const editor: BlockNoteEditor = useCreateBlockNote({
@@ -72,7 +72,7 @@ const Editor = ({initialContent, edit}: {initialContent?: string; edit: boolean}
       {typeof window !== "undefined" && (
         <BlockNoteView
           editor={editor}
-          editable={true}
+          editable={editable}
           theme={resolvedTheme === "dark" ? darkDefaultTheme : lightGrayTheme}
           onChange={() => {
             setNote({

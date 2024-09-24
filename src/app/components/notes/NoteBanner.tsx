@@ -83,7 +83,7 @@ const NoteBanner = ({colors, singleNote}: NoteBannerProps) => {
   return (
     <>
       <div
-        className="h-52 relative"
+        className="h-52  relative"
         style={{
           backgroundImage: `url(${img})`,
           backgroundSize: "cover",
@@ -103,18 +103,18 @@ const NoteBanner = ({colors, singleNote}: NoteBannerProps) => {
       <div className="relative w-10/12 my-3 group">
         <div className={`flex items-center gap-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 ${showSelect && "opacity-100"}`}>
           <div className="relative">
-            <Button className="bg-gray-300 dark:bg-[#404140] text-foreground flex items-center justify-center gap-1 px-3 py-1 hover:bg-gray-300 dark:hover:bg-[#404140]  text-sm" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+            <Button className="bg-gray-300 dark:bg-[#404140] text-foreground flex items-center justify-center gap-1 px-3 py-1 hover:bg-gray-300 dark:hover:bg-[#404140]  text-sm h-8" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
               <Smile className="w-5" /> <span className="hidden sm:inline-block ">Add Emoji</span>
             </Button>
             {/* Conditionally render the Emoji Picker */}
             {showEmojiPicker && (
-              <div className="absolute top-full mt-2">
+              <div className="absolute top-full mt-2 z-50">
                 <Picker onEmojiClick={(emoji: EmojiClickData) => onEmojiClick(emoji)} />
               </div>
             )}
           </div>
 
-          <Button className="relative bg-gray-300 dark:bg-[#404140] text-foreground px-3 py-1 hover:bg-gray-300 dark:hover:bg-[#404140] text-sm">
+          <Button className="relative bg-gray-300 dark:bg-[#404140] text-foreground px-3 py-1 hover:bg-gray-300 dark:hover:bg-[#404140] text-sm h-8">
             {/* Hidden file input */}
             <input
               type="file"
