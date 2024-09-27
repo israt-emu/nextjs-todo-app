@@ -5,14 +5,14 @@ import {Todo} from "@prisma/client";
 //update todo status
 export async function PATCH(request: Request) {
   try {
-    const {id, completed} = await request.json();
-    const todo = await prisma?.todo.findUnique({where: {id}});
+    const {userId, id, completed} = await request.json();
+    const todo = await prisma?.todo.findUnique({where: {id, userId}});
     if (!todo?.id) {
       throw new Error("Todo do not found");
     }
     //updating todo
     const updateTodo = await prisma?.todo.update({
-      where: {id},
+      where: {id, userId},
       data: {completed},
     });
 

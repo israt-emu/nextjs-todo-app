@@ -8,12 +8,12 @@ import TodoListView from "./TodoListView";
 import TodoCardView from "./TodoCardView";
 import {Categories} from "emoji-picker-react";
 
-const SingleTodo = ({todo, categories, params, setIsSuccess}: any) => {
+const SingleTodo = ({todo, categories, params, setIsSuccess,user}: any) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const todoDelete = async () => {
     setLoading(true);
-    const result = await deleteTodo(todo.id);
+    const result = await deleteTodo(todo.id,user?.userId);
     setLoading(false);
     if (result?.success) {
       toast({
@@ -28,7 +28,7 @@ const SingleTodo = ({todo, categories, params, setIsSuccess}: any) => {
   };
   const changeStatus = async (e: boolean | string) => {
     setLoading(true);
-    const data = await updateTodoStatus(todo?.id, e as boolean);
+    const data = await updateTodoStatus(todo?.id,user?.userId, e as boolean);
     setLoading(false);
     if (data?.success) {
       if (data?.data?.completed) {
@@ -52,9 +52,9 @@ const SingleTodo = ({todo, categories, params, setIsSuccess}: any) => {
       {params?.view === "grid" ? (
         //
         //
-        <TodoCardView todo={todo} categories={categories} loading={loading} todoDelete={todoDelete} changeStatus={changeStatus} />
+        <TodoCardView todo={todo} categories={categories} loading={loading} todoDelete={todoDelete} changeStatus={changeStatus} user={user} />
       ) : (
-        <TodoListView todo={todo} categories={categories} loading={loading} todoDelete={todoDelete} changeStatus={changeStatus} />
+        <TodoListView todo={todo} categories={categories} loading={loading} todoDelete={todoDelete} changeStatus={changeStatus} user={user} />
       )}
     </>
   );

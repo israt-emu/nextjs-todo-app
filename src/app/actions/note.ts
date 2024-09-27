@@ -45,14 +45,14 @@ export const findNoteById = async (id: number, userId: number) => {
     console.log(error);
   }
 };
-export const updateNote = async (id: number, note: Note) => {
+export const updateNote = async (id: number, note: Note, userId: number) => {
   try {
     const response = await fetch(`${process.env.NEXT_API_URL}/api/notes`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({id, note}),
+      body: JSON.stringify({id, note, userId}),
     });
 
     revalidateTag("notes");
@@ -62,14 +62,14 @@ export const updateNote = async (id: number, note: Note) => {
     console.log(error);
   }
 };
-export const deleteNote = async (id: number) => {
+export const deleteNote = async (id: number, userId: number) => {
   try {
     const response = await fetch(`${process.env.NEXT_API_URL}/api/notes`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({id}),
+      body: JSON.stringify({id, userId}),
     });
 
     revalidateTag("notes");

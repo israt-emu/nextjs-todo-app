@@ -16,6 +16,7 @@ export type TodoAddProps = {
 export type TodoUpdateProps = {
   categories: Category[];
   todo: Todo;
+  user?: User;
   params?:
     | {
         [key: string]: string | string[] | undefined;
@@ -23,6 +24,6 @@ export type TodoUpdateProps = {
     | undefined;
 };
 
-export type EditNoteProps = {colors: Color[]; note: Note};
+export type EditNoteProps = {colors: Color[]; note: Note; userId?: number};
 export type NoteBannerProps = {colors: Color[]; singleNote?: Note};
-export type SaveShareProps = {edit: boolean; noteId?: number};
+export type SaveShareProps = {edit: boolean; noteId?: number; userId?: number};

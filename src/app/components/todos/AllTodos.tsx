@@ -51,7 +51,7 @@ const AllTodos = ({categories, todos, user, searchParams}: any) => {
           <div className={`grid  ${searchParams?.view === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" : "grid-cols-1"} `}>
             {todos?.map((todo: Todo, i: number) => (
               <div key={i}>
-                <SingleTodo todo={todo} categories={categories} params={searchParams} setIsSuccess={setIsSuccess} />
+                <SingleTodo todo={todo} categories={categories} params={searchParams} setIsSuccess={setIsSuccess} user={user}/>
               </div>
             ))}
           </div>

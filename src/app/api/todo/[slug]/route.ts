@@ -6,15 +6,21 @@ import {NextRequest, NextResponse} from "next/server";
 export async function DELETE(request: NextRequest, {params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
+    const searchParams = Object.fromEntries(request.nextUrl.searchParams.entries());
+    const {userId} = searchParams;
     const result = await prisma.$transaction(async (tx) => {
-      // Deleting todo
-      const deleteTodo = await tx.todo.delete({
-        where: {id: Number(slug)},
-      });
-
       // Deleting categories (if any)
       await tx.todoCategory.deleteMany({
-        where: {todoId: Number(slug)},
+        where: {
+          todoId: Number(slug),
+          todo: {
+            userId: Number(userId),
+          },
+        },
+      });
+      // Deleting todo
+      const deleteTodo = await tx.todo.delete({
+        where: {id: Number(slug), userId: Number(userId)},
       });
 
       return "Todo and associated categories deleted successfully!";
@@ -40,7 +46,9 @@ export async function DELETE(request: NextRequest, {params}: {params: {slug: str
 export async function GET(request: NextRequest, {params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
-    const todo = await prisma?.todo.findUnique({where: {id: Number(slug)}, include: {categories: {include: {category: true}}}});
+    const searchParams = Object.fromEntries(request.nextUrl.searchParams.entries());
+    const {userId} = searchParams;
+    const todo = await prisma?.todo.findUnique({where: {id: Number(slug), userId: Number(userId)}, include: {categories: {include: {category: true}}}});
     return NextResponse.json(
       sendResponse<Partial<Todo>>({
         statusCode: 200,
@@ -63,9 +71,9 @@ export async function GET(request: NextRequest, {params}: {params: {slug: string
 export async function PATCH(request: NextRequest, {params}: {params: {slug: string}}) {
   try {
     const slug = params.slug;
-    const {data, newCategories} = await request.json();
+    const {userId, data, newCategories} = await request.json();
     const result = await prisma.$transaction(async (tx) => {
-      const todo = await tx?.todo.findUnique({where: {id: Number(slug)}, include: {categories: true}});
+      const todo = await tx?.todo.findUnique({where: {id: Number(slug), userId: Number(userId)}, include: {categories: true}});
       if (!todo?.id) {
         throw new Error("Todo do not found");
       }
@@ -78,7 +86,12 @@ export async function PATCH(request: NextRequest, {params}: {params: {slug: stri
       if (newCategories.length > 0) {
         //first deleting todocategory
         await tx.todoCategory.deleteMany({
-          where: {todoId: Number(slug)},
+          where: {
+            todoId: Number(slug),
+            todo: {
+              userId: Number(userId),
+            },
+          },
         });
 
         // Creating category array

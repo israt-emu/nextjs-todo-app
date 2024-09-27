@@ -23,7 +23,7 @@ const StickyNotes = async () => {
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-5">
             {notes?.data?.map((note: Note, i: number) => (
-              <SingleNote key={i} note={note} />
+              <SingleNote key={i} note={note} userId={user?.userId as number}/>
             ))}
           </div>
         </>

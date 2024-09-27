@@ -12,7 +12,7 @@ import TodoUpdateForm from "./TodoUpdateForm";
 import {Card, CardFooter, CardHeader} from "@/components/ui/card";
 import {priorityColors} from "@/app/constants/colors";
 //
-const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus}: any) => {
+const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus,user}: any) => {
   return (
     <>
       <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg dark:backdrop-blur-md dark:bg-gray-700/30 border border-gray-300 dark:border-gray-900 mt-2 z-20`}>
@@ -57,7 +57,7 @@ const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus}: any
                   <SheetDescription> Click save when you are done.</SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
-                  <TodoUpdateForm categories={categories} todo={todo} />
+                  <TodoUpdateForm categories={categories} todo={todo} user={user}/>
                 </div>
               </SheetContent>
             </Sheet>

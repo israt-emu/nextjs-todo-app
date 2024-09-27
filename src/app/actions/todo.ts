@@ -41,9 +41,9 @@ export const getAllTodo = async (searchParams: any) => {
     console.log(error);
   }
 };
-export const getTodoById = async (id: number) => {
+export const getTodoById = async (id: number, userId: number) => {
   try {
-    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}`);
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}?userId=${userId}`);
 
     const todo = await response.json();
     return todo;
@@ -51,9 +51,9 @@ export const getTodoById = async (id: number) => {
     console.log(error);
   }
 };
-export const deleteTodo = async (id: number) => {
+export const deleteTodo = async (id: number, userId: number) => {
   try {
-    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}`, {
+    const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}?userId=${userId}`, {
       method: "DELETE",
     });
 
@@ -64,14 +64,14 @@ export const deleteTodo = async (id: number) => {
     console.log(error);
   }
 };
-export const updateTodo = async (id: number, updateData: {data: object; newCategories: number[]}) => {
+export const updateTodo = async (id: number, userId: number, updateData: {data: object; newCategories: number[]}) => {
   try {
     const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updateData),
+      body: JSON.stringify({userId, ...updateData}),
     });
 
     revalidateTag("todos");
@@ -81,14 +81,14 @@ export const updateTodo = async (id: number, updateData: {data: object; newCateg
     console.log(error);
   }
 };
-export const updateTodoStatus = async (id: number, completed: boolean) => {
+export const updateTodoStatus = async (id: number, userId: number, completed: boolean) => {
   try {
     const response = await fetch(`${process.env.NEXT_API_URL}/api/todo/change-status`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({id, completed}),
+      body: JSON.stringify({id, userId, completed}),
     });
 
     revalidateTag("todos");

@@ -9,7 +9,7 @@ import Spinner from "@/components/ui/Spinner";
 import TodoUpdateForm from "./TodoUpdateForm";
 import {priorityColors} from "@/app/constants/colors";
 
-const TodoListView = ({todo, categories, loading, todoDelete, changeStatus}: any) => {
+const TodoListView = ({todo, categories, loading, todoDelete, changeStatus, user}: any) => {
   return (
     <div className="flex flex-row justify-between items-center p-4 my-1 border z-20   border-gray-300">
       <div className="flex items-center gap-2">
@@ -52,7 +52,7 @@ const TodoListView = ({todo, categories, loading, todoDelete, changeStatus}: any
               <SheetDescription> Click save when you are done.</SheetDescription>
             </SheetHeader>
             <div className="grid gap-4 py-4">
-              <TodoUpdateForm categories={categories} todo={todo} />
+              <TodoUpdateForm categories={categories} todo={todo} user={user} />
             </div>
           </SheetContent>
         </Sheet>

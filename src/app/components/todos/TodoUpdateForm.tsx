@@ -30,7 +30,7 @@ const formSchema = z.object({
   priority: z.enum(["LOW", "HIGH", "MEDIUM"]),
 });
 
-const TodoUpdateForm = ({categories, todo}: TodoUpdateProps) => {
+const TodoUpdateForm = ({categories, todo, user}: TodoUpdateProps) => {
   const [loading, setLoading] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<number[]>(todo.categories ? todo.categories.map((cat) => cat.categoryId) : []);
   // 1. Define your form.
@@ -56,7 +56,7 @@ const TodoUpdateForm = ({categories, todo}: TodoUpdateProps) => {
       },
       newCategories: areArraysEqual(selectedCategories, oldcategories) ? [] : selectedCategories,
     };
-    const result = await updateTodo(todo.id, updateData);
+    const result = await updateTodo(todo.id, user?.userId as number, updateData);
 
     setLoading(false);
     if (result?.success) {

@@ -11,7 +11,7 @@ const EditNotePage = async ({params}: {params: {id: string}}) => {
   const note = await findNoteById(Number(params?.id), Number(user?.userId));
   return (
     <div className="md:w-11/12 lg:w-full mx-auto">
-      <EditNote colors={colors?.data} note={note as Note} />
+      <EditNote colors={colors?.data} note={note as Note} userId={user?.userId as number} />
     </div>
   );
 };

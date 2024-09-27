@@ -10,7 +10,7 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 
-const SaveAndShareNote = ({edit, noteId}: SaveShareProps) => {
+const SaveAndShareNote = ({edit, noteId, userId}: SaveShareProps) => {
   const {note, setLoading} = useNote();
   const [copied, setCopied] = useState(false);
   const url = `${window.location.origin}/preview?userId=${note.userId}&noteId=${noteId}`;
@@ -19,7 +19,7 @@ const SaveAndShareNote = ({edit, noteId}: SaveShareProps) => {
     setLoading(true);
     let res;
     if (edit) {
-      res = await updateNote(noteId as number, note);
+      res = await updateNote(noteId as number, note, userId as number);
     } else {
       res = await createNote(note);
     }

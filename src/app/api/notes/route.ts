@@ -54,10 +54,10 @@ export async function GET(request: NextRequest) {
 }
 export async function PATCH(request: Request) {
   try {
-    const {note, id} = await request.json();
+    const {note, id, userId} = await request.json();
     const {colorId, ...others} = note;
     const newNote = await prisma?.note.update({
-      where: {id: Number(id)},
+      where: {id: Number(id), userId},
       data: colorId === 0 ? {...others} : {colorId, ...others},
     });
 
@@ -81,9 +81,9 @@ export async function PATCH(request: Request) {
 }
 export async function DELETE(request: Request) {
   try {
-    const {id} = await request.json();
+    const {id, userId} = await request.json();
     const newNote = await prisma?.note.delete({
-      where: {id: Number(id)},
+      where: {id: Number(id), userId},
     });
 
     return Response.json(

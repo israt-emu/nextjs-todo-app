@@ -8,11 +8,11 @@ import {deleteNote} from "@/app/actions/note";
 import {toast} from "@/components/ui/use-toast";
 import Spinner from "@/components/ui/Spinner";
 
-const DeleteNote = ({noteId}: {noteId: number}) => {
+const DeleteNote = ({noteId, userId}: {noteId: number; userId: number}) => {
   const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
     setLoading(true);
-    const res = await deleteNote(noteId);
+    const res = await deleteNote(noteId, userId);
     setLoading(false);
     if (res?.success) {
       toast({
