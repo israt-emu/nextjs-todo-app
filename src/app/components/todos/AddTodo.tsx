@@ -1,13 +1,17 @@
 "use client";
-import React from "react";
+import React, {useCallback, useState} from "react";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
 import {PlusIcon} from "lucide-react";
 import TodoAddForm from "./TodoAddForm";
-import {TodoAddProps} from "@/app/types/props";
 
-const AddTodo = ({categories, user}: TodoAddProps) => {
+const AddTodo = ({categories, user}: any) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <div className="flex items-center gap-1 cursor-pointer">
           <div className="text-primary hover:bg-primary hover:text-gray-50 w-6 h-6 rounded-full flex items-center justify-center ">
@@ -19,7 +23,7 @@ const AddTodo = ({categories, user}: TodoAddProps) => {
       <DialogContent className="">
         <DialogHeader>
           <DialogTitle className="text-center py-2">Add Task</DialogTitle>
-          <TodoAddForm categories={categories} user={user} />
+          <TodoAddForm categories={categories} user={user} handleClose={handleClose} />
         </DialogHeader>
       </DialogContent>
     </Dialog>

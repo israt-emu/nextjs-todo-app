@@ -9,10 +9,12 @@ import {SaveShareProps} from "@/app/types/props";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
+import {useRouter} from "next/navigation";
 
 const SaveAndShareNote = ({edit, noteId, userId}: SaveShareProps) => {
   const {note, setLoading} = useNote();
   const [copied, setCopied] = useState(false);
+  const router = useRouter();
   const url = `${window.location.origin}/preview?userId=${note.userId}&noteId=${noteId}`;
   //saving note
   const saveNote = async () => {
@@ -29,6 +31,7 @@ const SaveAndShareNote = ({edit, noteId, userId}: SaveShareProps) => {
       toast({
         title: "Note saved Successfully",
       });
+      router.push(`/dashboard/notes`);
     } else {
       toast({
         variant: "destructive",

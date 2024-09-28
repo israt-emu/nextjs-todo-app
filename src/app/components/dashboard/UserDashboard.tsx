@@ -57,7 +57,7 @@ export function UserDashboard({todos, notes}: any) {
           {data?.map((d, i) => {
             const Icon = (Icons as any)[d?.icon || "arrowRight"];
             return (
-              <Card className="w-full" key={i}>
+              <Card className="w-full border-gray-300 dark:border-gray-500" key={i}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">{d?.title}</CardTitle>
                   <Icon className={`${d.color} h-5 w-5`} />
@@ -71,14 +71,14 @@ export function UserDashboard({todos, notes}: any) {
           })}
         </div>
         <div className="grid gap-4 lg:grid-cols-2 w-full">
-          <Card className="" x-chunk="dashboard-01-chunk-4">
+          <Card className="border-gray-300 dark:border-gray-500" x-chunk="dashboard-01-chunk-4">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
                 <CardTitle className="text-xl md:text-2xl">Upcoming Todos</CardTitle>
                 <CardDescription>Finish your tasks fast..</CardDescription>
               </div>
-              <Button asChild size="sm" className="ml-auto gap-1 btn-gradient1 dark:btn-gradient2">
-                <Link href="/dashboard/todo">
+              <Button asChild size="sm" className="ml-auto gap-1">
+                <Link href="/dashboard/todos">
                   View All
                   <ArrowUpRight className="h-4 w-4" />
                 </Link>
@@ -113,7 +113,7 @@ export function UserDashboard({todos, notes}: any) {
               </Table>
             </CardContent>
           </Card>
-          <Card className="" x-chunk="dashboard-01-chunk-4">
+          <Card className="border-gray-300 dark:border-gray-500" x-chunk="dashboard-01-chunk-4">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
                 <CardTitle className="text-xl md:text-2xl">Recurring Todos</CardTitle>

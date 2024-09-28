@@ -3,7 +3,7 @@ import {Category} from "@/app/types/category";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {CopyCheck, PlusIcon} from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, {useCallback, useState} from "react";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import {Trash2} from "lucide-react";
 import AddCategoryForm from "../category/AddCategoryForm";
@@ -16,6 +16,11 @@ const CategoryList = ({categories, user}: any) => {
       return usersCategory.push(cat);
     }
   });
+  const [open, setOpen] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   return (
     <div>
@@ -28,7 +33,7 @@ const CategoryList = ({categories, user}: any) => {
             <div>
               {usersCategory?.map((cat: Category, i: number) => (
                 <div key={i} className="rounded-sm">
-                  <Link href="#" className="flex items-center px-2 py-1 space-x-3 rounded-md">
+                  <Link href={`/dashboard/todos?category=${cat?.name}`} className="flex items-center px-2 py-1 space-x-3 rounded-md">
                     <CopyCheck className="w-5 text-foreground" />
                     <span className="capitalize">{cat?.name}</span>
                   </Link>
@@ -37,7 +42,7 @@ const CategoryList = ({categories, user}: any) => {
             </div>
           </ScrollArea>
           <div className="rounded-sm">
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger>
                 <div className="flex items-center px-2 py-1 space-x-3 rounded-md cursor-pointer">
                   <PlusIcon />
@@ -46,7 +51,7 @@ const CategoryList = ({categories, user}: any) => {
               </DialogTrigger>
               <DialogContent className="">
                 <div className="text-center">Add Category</div>
-                <AddCategoryForm user={user as User} />
+                <AddCategoryForm user={user as User} handleClose={handleClose} />
               </DialogContent>
             </Dialog>
           </div>

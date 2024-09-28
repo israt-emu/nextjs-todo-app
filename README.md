@@ -48,5 +48,3 @@
    - Intuitive design
    - Drag-and-drop functionality(coming..)
    - Dark mode
-
-10. pwa

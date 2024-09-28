@@ -13,7 +13,7 @@ const StickyNotes = async () => {
   const notes = await getAllNotes(user?.userId as number);
 
   return (
-    <div className="sm:w-11/12 lg:w-full mx-auto relative mt-6 ">
+    <div className="sm:w-11/12 lg:w-full mx-auto relative mt-6">
       <h1 className="text-2xl font-semibold border-b border-gray-300 pb-3 ">Notes</h1>
       {notes?.data?.length === 0 ? (
         <div className="w-10/12 mx-auto">

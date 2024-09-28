@@ -62,7 +62,7 @@ const SignUpForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-11/12 md:w-10/12 gap-4 mb-3 md:mb-0">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-11/12 md:w-10/12 mb-3 md:mb-0">
         <div className="">
           <FormField
             control={form.control}
@@ -125,7 +125,7 @@ const SignUpForm = () => {
         </div>
 
         <Button type="submit" className="w-full h-10">
-          {loading && <Spinner color="white" />}
+          {loading && <Spinner color="border-white" />}
           Sign Up
         </Button>
         <p className="px-6 text-xs md:text-sm text-center  align-bottom mt-2">

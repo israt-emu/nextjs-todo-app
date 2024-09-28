@@ -3,7 +3,7 @@ import React from "react";
 
 const NoteLoading = () => {
   return (
-    <div className="space-y-2 sm:w-11/12 lg:w-full mx-auto mt-12">
+    <div className="space-y-2 sm:w-11/12 lg:w-full mx-auto mt-14">
       <div className="flex items-center gap-1">
         <Skeleton className="h-2 w-4" />
         <Skeleton className="h-2 w-4" />

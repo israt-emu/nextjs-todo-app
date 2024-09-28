@@ -198,7 +198,7 @@ const TodoUpdateForm = ({categories, todo, user}: TodoUpdateProps) => {
         <div className="grid grid-cols-2 gap-4 items-center">
           <Button className="bg-transparent btn-gradient1 dark:btn-gradient2 text-dark h-8">Cancel</Button>
           <Button type="submit" className="text-dark bg-transparent hover:bg-transparent border gradient1 dark:gradient2 rounded h-8">
-            {loading && <Spinner color="border-white" />}
+            {loading && <Spinner color="border-primary" />}
             Save
           </Button>
         </div>

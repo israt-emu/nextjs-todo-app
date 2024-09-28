@@ -19,7 +19,7 @@ const formSchema = z.object({
     message: "Title must be at least 2 characters.",
   }),
 });
-const AddCategoryForm = ({user}: {user: User}) => {
+const AddCategoryForm = ({user, handleClose}: {user: User; handleClose: () => void}) => {
   const [loading, setLoading] = useState(false);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,6 +37,7 @@ const AddCategoryForm = ({user}: {user: User}) => {
       toast({
         title: "Added Category successfully!",
       });
+      handleClose();
     } else {
       toast({
         variant: "destructive",

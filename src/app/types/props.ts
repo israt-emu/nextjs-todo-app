@@ -12,6 +12,7 @@ export type MultiSelectProps = {
 export type TodoAddProps = {
   categories: Category[];
   user: User;
+  handleClose: () => void;
 };
 export type TodoUpdateProps = {
   categories: Category[];

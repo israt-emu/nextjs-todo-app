@@ -12,7 +12,7 @@ import Link from "next/link";
 import {NavItem, navItems} from "@/app/constants/nav-items";
 import {Icons} from "../icons";
 import {TodoAddProps} from "@/app/types/props";
-const Sidebar = ({categories, user}: TodoAddProps) => {
+const Sidebar = ({categories, user}: any) => {
   const [collapse, setCollapse] = useState(false);
   const handleToggle = () => {
     setCollapse(!collapse);

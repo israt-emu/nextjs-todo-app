@@ -30,7 +30,7 @@ const formSchema = z.object({
   dueDate: z.date().optional(),
 });
 
-const TodoAddForm = ({categories, user}: TodoAddProps) => {
+const TodoAddForm = ({categories, user, handleClose}: TodoAddProps) => {
   const [loading, setLoading] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   // 1. Define your form.
@@ -57,6 +57,7 @@ const TodoAddForm = ({categories, user}: TodoAddProps) => {
       toast({
         title: "Added task successfully!",
       });
+      handleClose();
     } else {
       toast({
         variant: "destructive",
