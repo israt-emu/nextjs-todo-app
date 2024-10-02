@@ -6,7 +6,7 @@ import React from "react";
 const ProfilePage = async () => {
   const user = await getUserFromToken();
   return (
-    <div>
+    <div className="mt-12 ">
       <UserProfile user={user as User} />
     </div>
   );

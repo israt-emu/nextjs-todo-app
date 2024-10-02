@@ -10,7 +10,7 @@ const EditNotePage = async ({params}: {params: {id: string}}) => {
   const user = await getUserFromToken();
   const note = await findNoteById(Number(params?.id), Number(user?.userId));
   return (
-    <div className="md:w-11/12 lg:w-full mx-auto">
+    <div className="md:w-11/12 lg:w-full mx-auto mt-8 md:mt-0">
       <EditNote colors={colors?.data} note={note as Note} userId={user?.userId as number} />
     </div>
   );

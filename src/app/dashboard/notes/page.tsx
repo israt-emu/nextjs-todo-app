@@ -14,7 +14,7 @@ const StickyNotes = async () => {
 
   return (
     <div className="sm:w-11/12 lg:w-full mx-auto relative mt-6">
-      <h1 className="text-2xl font-semibold border-b border-gray-300 pb-3 ">Notes</h1>
+      <h1 className="text-2xl font-semibold border-b border-gray-300 pb-3 mt-12 md:mt-8">Notes</h1>
       {notes?.data?.length === 0 ? (
         <div className="w-10/12 mx-auto">
           <NoDataPlayer />
@@ -23,7 +23,7 @@ const StickyNotes = async () => {
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-5">
             {notes?.data?.map((note: Note, i: number) => (
-              <SingleNote key={i} note={note} userId={user?.userId as number}/>
+              <SingleNote key={i} note={note} userId={user?.userId as number} />
             ))}
           </div>
         </>

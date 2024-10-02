@@ -10,6 +10,7 @@ import {Todo} from "@/app/types/todo";
 import {Icons} from "../icons";
 import {format} from "date-fns";
 import {priorityColors} from "@/app/constants/colors";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 export function UserDashboard({todos, notes}: any) {
   const currentDate = new Date();
@@ -57,7 +58,7 @@ export function UserDashboard({todos, notes}: any) {
           {data?.map((d, i) => {
             const Icon = (Icons as any)[d?.icon || "arrowRight"];
             return (
-              <Card className="w-full border-gray-300 dark:border-gray-500" key={i}>
+              <Card className="w-11/12 mx-auto md:w-full border-gray-300 dark:border-gray-500" key={i}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">{d?.title}</CardTitle>
                   <Icon className={`${d.color} h-5 w-5`} />
@@ -71,13 +72,32 @@ export function UserDashboard({todos, notes}: any) {
           })}
         </div>
         <div className="grid gap-4 lg:grid-cols-2 w-full">
-          <Card className="border-gray-300 dark:border-gray-500" x-chunk="dashboard-01-chunk-4">
-            <CardHeader className="flex flex-row items-center">
-              <div className="grid gap-2">
-                <CardTitle className="text-xl md:text-2xl">Upcoming Todos</CardTitle>
+          <Card className="w-11/12 mx-auto md:w-full border-gray-300 dark:border-gray-500" x-chunk="dashboard-01-chunk-4">
+            <CardHeader className="flex flex-col-reverse sm:flex-row sm:items-center">
+              <div className="grid gap-2 mt-2 sm:mt-0">
+                <CardTitle>
+                  <div className="flex items-center">
+                    <div className="text-xl md:text-2xl"> Upcoming Todos</div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button asChild size="sm" className="bg-transparent hover:bg-transparent sm:hidden">
+                            <Link href="/dashboard/todos">
+                              <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+                            </Link>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent align="center" side="right" sideOffset={8}>
+                          view All
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                </CardTitle>
+
                 <CardDescription>Finish your tasks fast..</CardDescription>
               </div>
-              <Button asChild size="sm" className="ml-auto gap-1">
+              <Button asChild size="sm" className=" hidden sm:flex sm:ml-auto gap-1">
                 <Link href="/dashboard/todos">
                   View All
                   <ArrowUpRight className="h-4 w-4" />
@@ -113,7 +133,7 @@ export function UserDashboard({todos, notes}: any) {
               </Table>
             </CardContent>
           </Card>
-          <Card className="border-gray-300 dark:border-gray-500" x-chunk="dashboard-01-chunk-4">
+          <Card className="w-11/12 mx-auto md:w-full border-gray-300 dark:border-gray-500" x-chunk="dashboard-01-chunk-4">
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
                 <CardTitle className="text-xl md:text-2xl">Recurring Todos</CardTitle>

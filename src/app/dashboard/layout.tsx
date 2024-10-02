@@ -27,7 +27,7 @@ export default async function DashboardLayout({
         <ScrollArea className="h-[calc(100vh-20px)]">
           <div className="flex items-center justify-between md:justify-end">
             <MobileNav />
-            <div className="md:mr-3 ">
+            <div className="md:mr-3">
               <ModeToggle />
             </div>
           </div>
