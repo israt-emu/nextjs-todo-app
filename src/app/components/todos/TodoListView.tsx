@@ -9,7 +9,7 @@ import Spinner from "@/components/ui/Spinner";
 import TodoUpdateForm from "./TodoUpdateForm";
 import {priorityColors} from "@/app/constants/colors";
 
-const TodoListView = ({todo, categories, loading, todoDelete, changeStatus, user}: any) => {
+const TodoListView = ({todo, categories, loading, todoDelete, changeStatus, user, open, setOpen}: any) => {
   return (
     <div className="flex flex-row justify-between items-center p-4 my-1 border z-20   border-gray-300">
       <div className="flex items-center gap-2">
@@ -42,7 +42,7 @@ const TodoListView = ({todo, categories, loading, todoDelete, changeStatus, user
           </Tooltip>
         </TooltipProvider>
 
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <FilePenLine className="cursor-pointer w-4" />
           </SheetTrigger>
@@ -52,7 +52,7 @@ const TodoListView = ({todo, categories, loading, todoDelete, changeStatus, user
               <SheetDescription> Click save when you are done.</SheetDescription>
             </SheetHeader>
             <div className="grid gap-4 py-4">
-              <TodoUpdateForm categories={categories} todo={todo} user={user} />
+              <TodoUpdateForm categories={categories} todo={todo} user={user} setOpen={setOpen} />
             </div>
           </SheetContent>
         </Sheet>

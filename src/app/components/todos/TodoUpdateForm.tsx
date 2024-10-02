@@ -30,7 +30,7 @@ const formSchema = z.object({
   priority: z.enum(["LOW", "HIGH", "MEDIUM"]),
 });
 
-const TodoUpdateForm = ({categories, todo, user}: TodoUpdateProps) => {
+const TodoUpdateForm = ({categories, todo, user, setOpen}: TodoUpdateProps) => {
   const [loading, setLoading] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<number[]>(todo.categories ? todo.categories.map((cat) => cat.categoryId) : []);
   // 1. Define your form.
@@ -63,6 +63,7 @@ const TodoUpdateForm = ({categories, todo, user}: TodoUpdateProps) => {
       toast({
         title: "Updated task successfully!",
       });
+      setOpen(false);
     } else {
       toast({
         variant: "destructive",
@@ -70,7 +71,7 @@ const TodoUpdateForm = ({categories, todo, user}: TodoUpdateProps) => {
       });
     }
   }
-  console.log(selectedCategories, categories);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col   content-center gap-4">
@@ -196,7 +197,9 @@ const TodoUpdateForm = ({categories, todo, user}: TodoUpdateProps) => {
         </div>
 
         <div className="grid grid-cols-2 gap-4 items-center">
-          <Button className="bg-transparent btn-gradient1 dark:btn-gradient2 text-dark h-8">Cancel</Button>
+          <div className="cursor-pointer bg-transparent btn-gradient1 dark:btn-gradient2 text-dark p-1 text-center rounded" onClick={() => setOpen(false)}>
+            Cancel
+          </div>
           <Button type="submit" className="text-dark bg-transparent hover:bg-transparent border gradient1 dark:gradient2 rounded h-8">
             {loading && <Spinner color="border-primary" />}
             Save

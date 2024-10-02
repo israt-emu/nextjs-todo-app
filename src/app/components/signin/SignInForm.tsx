@@ -48,7 +48,7 @@ const SignInForm = () => {
       setLoading(false);
       toast({
         variant: "destructive",
-        title: "An error occured!",
+        title: result?.message || "An error occured!",
       });
     }
   }

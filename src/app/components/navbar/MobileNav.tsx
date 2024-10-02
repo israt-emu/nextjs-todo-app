@@ -3,11 +3,11 @@
 import {NavItem, navItems} from "@/app/constants/nav-items";
 import {Sheet, SheetTrigger, SheetContent} from "@/components/ui/sheet";
 import {LogOut, MenuIcon, User} from "lucide-react";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Icons} from "../icons";
 import Link from "next/link";
 import {cn} from "@/lib/utils";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import Cookies from "js-cookie";
 
 const MobileNav = () => {
@@ -17,6 +17,11 @@ const MobileNav = () => {
     Cookies.remove("accessToken");
     router.push("/signin");
   };
+
+  const pathname = usePathname();
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -34,18 +39,18 @@ const MobileNav = () => {
                     const Icon = (Icons as any)[item.icon || "arrowRight"];
                     return (
                       item.href && (
-                        <Link key={index} href={item?.href} className={cn("rounded-sm hover:bg-gray-100 dark:hover:bg-[#404140] flex items-center p-2 space-x-3")}>
+                        <Link key={index} href={item?.href} className={cn("rounded-sm hover:bg-gray-300 dark:hover:bg-[#404140] flex items-center p-2 space-x-3", pathname === item.href && "bg-gray-300 dark:bg-[#404140]")}>
                           <Icon className={item.className} />
                           <span className="truncate">{item.title}</span>
                         </Link>
                       )
                     );
                   })}
-                  <Link href="/dashboard/user-profile" className={cn(" p-2 space-x-3 flex items-center hover:bg-gray-100 dark:hover:bg-[#404140] rounded-sm")}>
+                  <Link href="/dashboard/user-profile" className={cn(" p-2 space-x-3 flex items-center hover:bg-gray-300 dark:hover:bg-[#404140] rounded-sm", pathname === "/dashboard/user-profile" && "bg-gray-300 dark:bg-[#404140]")}>
                     <User className="text-orange-700 dark:text-orange-500" />
                     <span className="truncate">Profile</span>
                   </Link>
-                  <div className="p-2 space-x-3 flex items-center hover:bg-gray-100 dark:hover:bg-[#404140] rounded-sm" onClick={handleLogout}>
+                  <div className="p-2 space-x-3 flex items-center hover:bg-gray-300 dark:hover:bg-[#404140] rounded-sm" onClick={handleLogout}>
                     <LogOut className="pl-1 text-emerald-800 dark:text-emerald-500" strokeWidth={2.3} />
                     <span className="truncate">Logout</span>
                   </div>

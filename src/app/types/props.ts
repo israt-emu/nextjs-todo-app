@@ -18,6 +18,7 @@ export type TodoUpdateProps = {
   categories: Category[];
   todo: Todo;
   user?: User;
+  setOpen: (open: boolean) => void;
   params?:
     | {
         [key: string]: string | string[] | undefined;

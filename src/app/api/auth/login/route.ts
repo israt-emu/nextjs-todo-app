@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     return Response.json(
       sendResponse({
         statusCode: 200,
-        success: true,
+        success: false,
         message: (error as any)?.message,
       })
     );

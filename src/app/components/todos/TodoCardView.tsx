@@ -11,8 +11,10 @@ import Spinner from "@/components/ui/Spinner";
 import TodoUpdateForm from "./TodoUpdateForm";
 import {Card, CardFooter, CardHeader} from "@/components/ui/card";
 import {priorityColors} from "@/app/constants/colors";
+import {useState} from "react";
 //
-const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus,user}: any) => {
+const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus, user,open,setOpen}: any) => {
+  
   return (
     <>
       <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg dark:backdrop-blur-md dark:bg-gray-700/30 border border-gray-300 dark:border-gray-900 mt-2 z-20`}>
@@ -47,7 +49,7 @@ const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus,user}
               </Tooltip>
             </TooltipProvider>
 
-            <Sheet>
+            <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <FilePenLine className="cursor-pointer w-4" />
               </SheetTrigger>
@@ -57,7 +59,7 @@ const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus,user}
                   <SheetDescription> Click save when you are done.</SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
-                  <TodoUpdateForm categories={categories} todo={todo} user={user}/>
+                  <TodoUpdateForm categories={categories} todo={todo} user={user} setOpen={setOpen} />
                 </div>
               </SheetContent>
             </Sheet>

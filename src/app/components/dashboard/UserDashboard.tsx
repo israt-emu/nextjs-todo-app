@@ -105,32 +105,36 @@ export function UserDashboard({todos, notes}: any) {
               </Button>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
+              {upcomingTodos?.length > 0 ? (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Title</TableHead>
 
-                    <TableHead className="text-right">Priority</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {upcomingTodos?.slice(0, 5)?.map((todo: Todo, i: number) => (
-                    <TableRow key={i}>
-                      <TableCell>
-                        <div className="font-medium">{todo?.title}</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">{format(todo?.dueDate as Date, "dd/MM/yyyy")}</div>
-                      </TableCell>
-
-                      <TableCell className="text-right ">
-                        <div className="flex items-center justify-end gap-1">
-                          <p>{todo?.priority}</p>
-                          <Flag className={`${priorityColors[todo?.priority]} w-4`} />
-                        </div>
-                      </TableCell>
+                      <TableHead className="text-right">Priority</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {upcomingTodos?.slice(0, 5)?.map((todo: Todo, i: number) => (
+                      <TableRow key={i}>
+                        <TableCell>
+                          <div className="font-medium">{todo?.title}</div>
+                          <div className="hidden text-sm text-muted-foreground md:inline">{format(todo?.dueDate as Date, "dd/MM/yyyy")}</div>
+                        </TableCell>
+
+                        <TableCell className="text-right ">
+                          <div className="flex items-center justify-end gap-1">
+                            <p>{todo?.priority}</p>
+                            <Flag className={`${priorityColors[todo?.priority]} w-4`} />
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                "---No Records Here---"
+              )}
             </CardContent>
           </Card>
           <Card className="w-11/12 mx-auto md:w-full border-gray-300 dark:border-gray-500" x-chunk="dashboard-01-chunk-4">
