@@ -20,10 +20,13 @@ const AddTodo = ({categories, user}: any) => {
           <div className="text-sm">Add Todo</div>
         </div>
       </DialogTrigger>
-      <DialogContent className="w-11/12 sm:w-full mx-auto">
+      <DialogContent className="">
         <DialogHeader>
           <DialogTitle className="text-center py-2">Add Task</DialogTitle>
-          <TodoAddForm categories={categories} user={user} handleClose={handleClose} />
+
+          <div>
+            <TodoAddForm categories={categories} user={user} handleClose={handleClose} />
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>

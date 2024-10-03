@@ -54,7 +54,7 @@ export default function UserProfile({user}: {user: User}) {
     reader.onloadend = async () => {
       const base64data = reader.result;
 
-      const response = await fetch(`${process.env.NEXT_API_URL}/api/cloudinary`, {
+      const response = await fetch(`https://task-planify.vercel.app/api/cloudinary`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({data: base64data}),

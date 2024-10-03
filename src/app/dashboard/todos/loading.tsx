@@ -3,7 +3,7 @@ import React from "react";
 
 const TodoLoading = () => {
   return (
-    <div className="space-y-2 w-10/12 mx-auto mt-14">
+    <div className="space-y-2 w-11/12 sm:w-10/12 mx-auto mt-14">
       <div className="flex justify-between gap-3 items-center">
         <div className="flex items-center gap-1">
           <Skeleton className="h-2 w-4" />

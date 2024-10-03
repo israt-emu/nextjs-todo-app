@@ -68,8 +68,8 @@ const TodoAddForm = ({categories, user, handleClose}: TodoAddProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col justify-center items-center content-center gap-4">
-        <div className="w-full border border-primary rounded-md">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+        <div className="w-full">
           <FormField
             control={form.control}
             name="title"
@@ -77,7 +77,7 @@ const TodoAddForm = ({categories, user, handleClose}: TodoAddProps) => {
               <FormItem>
                 {/* <FormLabel>Username</FormLabel> */}
                 <FormControl>
-                  <Input placeholder="Enter the title of your task." {...field} className="border boprder-primary" />
+                  <Input placeholder="Enter the title of your task." {...field} className="border border-primary" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -86,7 +86,7 @@ const TodoAddForm = ({categories, user, handleClose}: TodoAddProps) => {
         </div>
 
         <div className="w-full">
-          <MultiSelect options={categories} onValueChange={setSelectedCategories} initialSelectedValue={selectedCategories} placeholder="Choose one or more categories for your task." variant="inverted" animation={2} maxCount={4} />
+          <MultiSelect options={categories} onValueChange={setSelectedCategories} initialSelectedValue={selectedCategories} placeholder="Choose one or more categories" variant="inverted" animation={2} maxCount={4} />
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="">

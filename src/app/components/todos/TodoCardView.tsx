@@ -13,11 +13,10 @@ import {Card, CardFooter, CardHeader} from "@/components/ui/card";
 import {priorityColors} from "@/app/constants/colors";
 import {useState} from "react";
 //
-const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus, user,open,setOpen}: any) => {
-  
+const TodoCardView = ({todo, categories, loading, todoDelete, changeStatus, user, open, setOpen}: any) => {
   return (
     <>
-      <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg dark:backdrop-blur-md dark:bg-gray-700/30 border border-gray-300 dark:border-gray-900 mt-2 z-20`}>
+      <Card className={`md:w-[200px] lg:w-[240px]  shadow-lg dark:backdrop-blur-md dark:bg-gray-700/30 border border-gray-300 dark:border-gray-900 mt-2 -z-10`}>
         <CardHeader>
           <div className="flex items-center gap-2">
             <Checkbox checked={todo?.completed ? true : false} onCheckedChange={(checked) => changeStatus(checked)} />

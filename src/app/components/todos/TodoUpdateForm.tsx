@@ -197,10 +197,10 @@ const TodoUpdateForm = ({categories, todo, user, setOpen}: TodoUpdateProps) => {
         </div>
 
         <div className="grid grid-cols-2 gap-4 items-center">
-          <div className="cursor-pointer bg-transparent btn-gradient1 dark:btn-gradient2 text-dark p-1 text-center rounded" onClick={() => setOpen(false)}>
+          <div className="cursor-pointer bg-gray-300 dark:bg-[#404140] text-dark p-1 text-center rounded" onClick={() => setOpen(false)}>
             Cancel
           </div>
-          <Button type="submit" className="text-dark bg-transparent hover:bg-transparent border gradient1 dark:gradient2 rounded h-8">
+          <Button type="submit" className="text-dark bg-primary hover:bg-primary/80 border border-primary rounded h-8">
             {loading && <Spinner color="border-primary" />}
             Save
           </Button>

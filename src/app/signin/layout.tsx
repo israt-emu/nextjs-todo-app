@@ -18,7 +18,7 @@ export default function SignInLayout({
       <div className="flex items-center justify-end py-3 px-4 absolute top-2 right-2">
         <ModeToggle />
       </div>
-      <div className="w-10/12 sm:w-8/12 mx-auto flex flex-col h-screen justify-center">{children}</div>
+      <div className="w-10/12 sm:w-8/12 md:w-10/12 lg:w-8/12 mx-auto flex flex-col h-screen justify-center">{children}</div>
     </section>
   );
 }
